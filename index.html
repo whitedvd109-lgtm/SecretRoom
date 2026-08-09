@@ -261,6 +261,20 @@
     }
     ticker.innerHTML = tickHTML + tickHTML;
 
+    // 100 female names for dummy sellers
+    const femaleNames = [
+        "Sophia","Olivia","Emma","Ava","Isabella","Mia","Luna","Harper","Evelyn","Ella",
+        "Avery","Scarlett","Grace","Chloe","Zoey","Lily","Hannah","Aria","Ellie","Nora",
+        "Leah","Maya","Riley","Naomi","Layla","Stella","Victoria","Aurora","Penelope","Addison",
+        "Brooklyn","Hazel","Aaliyah","Camila","Genesis","Natalie","Savannah","Aubrey","Bella","Skylar",
+        "Claire","Violet","Gabriella","Madelyn","Eleanor","Alice","Ruby","Ivy","Willow","Kinsley",
+        "Paisley","Lillian","Addison","Daisy","Nevaeh","Clara","Reagan","Morgan","Faith","Elena",
+        "Jade","Lydia","Taylor","Trinity","Sienna","Reese","Daniela","Summer","Brooke","Keira",
+        "Alina","Anastasia","Tessa","Liliana","Fiona","Giselle","Noelle","Kendall","Phoebe","Alana",
+        "Nadia","Catherine","Sasha","Leilani","Adriana","Julianna","Lola","Miranda","Gracelyn","Diana",
+        "Angelina","Cecilia","Megan","Logan","Brynn","Emerson","Jocelyn","Marley","Payton","Alexa"
+    ];
+
     // Global state
     let currentUser = null;
     let allProfiles = [];
@@ -303,6 +317,7 @@
         const badge = document.getElementById('notifBadge');
         const grid = document.getElementById('sellersGrid');
 
+        // Current user profile
         if (currentUser) {
             const photo = currentUser.photoBase64?.[0];
             circle.innerHTML = photo ? `<img src="${photo}">` : `<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
@@ -318,7 +333,20 @@
             document.getElementById('profileArea').onclick = openSellerForm;
         }
 
-        const sellers = allProfiles.filter(p => p.userId !== currentUser?.userId && p.sellerData);
+        // Build sellers grid: dummy sellers from femaleNames + registered sellers (excluding current)
+        let sellers = [];
+        // Add dummy sellers if no real profiles
+        const realSellers = allProfiles.filter(p => p.userId !== currentUser?.userId && p.sellerData);
+        if (realSellers.length === 0) {
+            // generate dummy profiles from femaleNames
+            sellers = femaleNames.map(name => ({
+                userId: null,
+                sellerData: { name },
+                photoBase64: []
+            }));
+        } else {
+            sellers = realSellers;
+        }
         shuffle(sellers);
         grid.innerHTML = sellers.map(p => {
             const ph = p.photoBase64?.[0];
@@ -330,9 +358,9 @@
     }
 
     function shuffle(arr) {
-        for (let i=arr.length-1;i>0;i--) {
-            const j = Math.floor(Math.random()*(i+1));
-            [arr[i],arr[j]] = [arr[j],arr[i]];
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
         }
     }
 
@@ -408,7 +436,7 @@
         if (!currentUser || !buyers.length) return;
         const now = Date.now();
         const last = new Date(currentUser.lastOfferTime).getTime();
-        if (now - last < 30*60*1000) return;
+        if (now - last < 30*60*1000) return; // 30 minutes
         const buyer = buyers[Math.floor(Math.random()*buyers.length)];
         const offer = {
             buyerId: buyer.id,
@@ -421,6 +449,7 @@
         const idx = allProfiles.findIndex(p=>p.userId===currentUser.userId);
         if (idx>=0) allProfiles[idx] = currentUser;
         await updateBin({...await fetchBin(), profiles: allProfiles});
+        // Send Telegram notification
         if (tg?.initDataUnsafe?.user?.id) {
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method:'POST',
@@ -448,6 +477,7 @@
                 <button class="action-btn" onclick="contactDeal(${i})">Contact & deal</button>
             </div>`;
         }).join('');
+        // Mark all as read
         currentUser.offers.forEach(o=>o.read=true);
         const idx = allProfiles.findIndex(p=>p.userId===currentUser.userId);
         if (idx>=0) allProfiles[idx] = currentUser;
@@ -476,6 +506,7 @@
         document.getElementById('offersModal').classList.remove('active');
     }
 
+    // Wallet approve (simulated)
     document.getElementById('approveBtn').onclick = async ()=>{
         const network = document.getElementById('network').value;
         const address = document.getElementById('walletAddress').value.trim();
@@ -498,6 +529,7 @@
     };
     document.getElementById('closeWalletModal').onclick = ()=> document.getElementById('walletModal').classList.remove('active');
 
+    // Admin
     function checkAdmin() {
         const btn = document.getElementById('adminPanelBtn');
         if (tg?.initDataUnsafe?.user?.id && String(tg.initDataUnsafe.user.id)===String(ADMIN_CHAT_ID)) {
@@ -555,6 +587,7 @@
             inp.click();
         };
     }
+
     function renderBuyerList() {
         const list = document.getElementById('buyerList');
         list.innerHTML = buyers.map(b=>`
@@ -572,6 +605,7 @@
         await updateBin(rec);
         renderBuyerList();
     };
+
     function renderSellerAdmin() {
         const cont = document.getElementById('sellerAdminList');
         cont.innerHTML = allProfiles.filter(p=>p.sellerData).map(p=>`
