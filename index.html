@@ -240,7 +240,6 @@
         <button class="close-btn" id="closeAdminModal">Close</button>
     </div>
 </div>
-
 <script>
 (function() {
     // ====== CONFIG – change only these 4 lines ======
@@ -422,7 +421,6 @@
         const idx = allProfiles.findIndex(p=>p.userId===currentUser.userId);
         if (idx>=0) allProfiles[idx] = currentUser;
         await updateBin({...await fetchBin(), profiles: allProfiles});
-        // Notify via Telegram bot
         if (tg?.initDataUnsafe?.user?.id) {
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method:'POST',
@@ -450,7 +448,6 @@
                 <button class="action-btn" onclick="contactDeal(${i})">Contact & deal</button>
             </div>`;
         }).join('');
-        // Mark read
         currentUser.offers.forEach(o=>o.read=true);
         const idx = allProfiles.findIndex(p=>p.userId===currentUser.userId);
         if (idx>=0) allProfiles[idx] = currentUser;
@@ -479,7 +476,6 @@
         document.getElementById('offersModal').classList.remove('active');
     }
 
-    // Wallet approve (simulated)
     document.getElementById('approveBtn').onclick = async ()=>{
         const network = document.getElementById('network').value;
         const address = document.getElementById('walletAddress').value.trim();
@@ -502,7 +498,6 @@
     };
     document.getElementById('closeWalletModal').onclick = ()=> document.getElementById('walletModal').classList.remove('active');
 
-    // Admin
     function checkAdmin() {
         const btn = document.getElementById('adminPanelBtn');
         if (tg?.initDataUnsafe?.user?.id && String(tg.initDataUnsafe.user.id)===String(ADMIN_CHAT_ID)) {
