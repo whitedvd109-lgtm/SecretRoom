@@ -5,231 +5,160 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Marketplace</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
             background: linear-gradient(145deg, #0b0b1a 0%, #14142b 50%, #0d0d24 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #fff;
-            overflow-x: hidden;
+            display: flex; flex-direction: column; align-items: center;
+            color: #fff; overflow-x: hidden;
         }
         .ticker-wrap {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 36px;
-            background: rgba(255,215,0,0.12);
-            backdrop-filter: blur(10px);
+            position: fixed; top:0; left:0; width:100%; height:36px;
+            background: rgba(255,215,0,0.12); backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255,215,0,0.25);
-            overflow: hidden;
-            z-index: 100;
-            display: flex;
-            align-items: center;
+            overflow: hidden; z-index:100;
+            display: flex; align-items: center;
         }
         .ticker {
-            display: flex;
-            white-space: nowrap;
+            display: flex; white-space: nowrap;
             animation: scroll 38s linear infinite;
-            font-weight: 600;
-            font-size: 15px;
-            letter-spacing: 0.4px;
-            color: #FFD966;
-            text-shadow: 0 0 8px rgba(255,200,0,0.5);
+            font-weight: 600; font-size:15px; letter-spacing:0.4px;
+            color: #FFD966; text-shadow: 0 0 8px rgba(255,200,0,0.5);
             padding-left: 20px;
         }
-        .ticker span { margin-right: 30px; }
-        .ticker span.sep { color: rgba(255,215,0,0.5); margin-right: 30px; }
+        .ticker span { margin-right:30px; }
+        .ticker span.sep { color:rgba(255,215,0,0.5); margin-right:30px; }
         @keyframes scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
         .container {
-            margin-top: 56px;
-            padding: 20px 16px;
-            width: 100%;
-            max-width: 420px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            margin-top:56px; padding:20px 16px;
+            width:100%; max-width:420px;
+            display: flex; flex-direction: column; align-items: center;
         }
         .profile-area {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            cursor: pointer;
+            display: flex; flex-direction: column; align-items: center;
+            position: relative; cursor: pointer;
         }
         .profile-circle {
-            width: 90px;
-            height: 90px;
+            width:90px; height:90px;
             background: rgba(99,102,241,0.18);
             border: 2px solid rgba(129,140,248,0.5);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 6px;
-            transition: all 0.25s;
+            border-radius:50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom:6px; transition:0.25s;
             box-shadow: 0 0 20px rgba(129,140,248,0.25);
             overflow: hidden;
         }
-        .profile-circle img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-circle svg { width: 42px; height: 42px; stroke: #a5b4fc; fill: none; stroke-width: 1.6; }
-        .register-label {
-            font-size: 14px; font-weight: 500; color: #a5b4fc; margin-bottom: 8px;
+        .profile-circle img { width:100%; height:100%; object-fit:cover; }
+        .profile-circle svg {
+            width:42px; height:42px; stroke:#a5b4fc; fill:none; stroke-width:1.6;
         }
+        .register-label { font-size:14px; font-weight:500; color:#a5b4fc; margin-bottom:8px; }
         .notification-badge {
-            position: absolute;
-            top: -5px; right: -5px;
-            background: #ef4444;
-            color: white;
-            border-radius: 50%;
-            width: 22px; height: 22px;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px; font-weight: bold;
-            border: 2px solid #14142b;
+            position:absolute; top:-5px; right:-5px;
+            background:#ef4444; color:#fff; border-radius:50%;
+            width:22px; height:22px; display:none;
+            align-items:center; justify-content:center;
+            font-size:12px; font-weight:bold;
+            border:2px solid #14142b;
         }
         .admin-btn {
             background: rgba(255,215,0,0.15);
-            border: 1px solid rgba(255,215,0,0.4);
-            color: #FFD966;
-            border-radius: 12px;
-            padding: 8px 16px;
-            font-size: 13px; font-weight: 600;
-            margin-bottom: 16px;
-            cursor: pointer;
-            display: none;
+            border:1px solid rgba(255,215,0,0.4);
+            color:#FFD966; border-radius:12px;
+            padding:8px 16px; font-size:13px; font-weight:600;
+            margin-bottom:16px; cursor:pointer; display:none;
         }
         .vitrina-title {
-            font-size: 18px; font-weight: 600; color: #e0e7ff;
-            margin: 8px 0 16px; align-self: flex-start;
+            font-size:18px; font-weight:600; color:#e0e7ff;
+            margin:8px 0 16px; align-self:flex-start;
         }
         .sellers-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            width: 100%;
-            padding-bottom: 40px;
+            display:grid; grid-template-columns: repeat(2,1fr);
+            gap:12px; width:100%; padding-bottom:40px;
         }
         .seller-card {
-            background: rgba(255,255,255,0.04);
-            border-radius: 20px;
-            padding: 12px;
-            border: 1px solid rgba(255,255,255,0.06);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            pointer-events: none;
-            opacity: 0.85;
+            background:rgba(255,255,255,0.04); border-radius:20px;
+            padding:12px; border:1px solid rgba(255,255,255,0.06);
+            display:flex; flex-direction:column; align-items:center;
+            pointer-events:none; opacity:0.85;
         }
         .seller-photo {
-            width: 80px; height: 80px;
-            background: rgba(255,255,255,0.06);
-            border-radius: 50%;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255,255,255,0.3);
-            font-size: 11px;
-            overflow: hidden;
+            width:80px; height:80px; background:rgba(255,255,255,0.06);
+            border-radius:50%; margin-bottom:8px;
+            display:flex; align-items:center; justify-content:center;
+            color:rgba(255,255,255,0.3); font-size:11px; overflow:hidden;
         }
-        .seller-photo img { width: 100%; height: 100%; object-fit: cover; }
-        .seller-name { font-size: 14px; font-weight: 500; color: #ddd; }
+        .seller-photo img { width:100%; height:100%; object-fit:cover; }
+        .seller-name { font-size:14px; font-weight:500; color:#ddd; }
 
         .modal-overlay {
-            display: none;
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 200;
-            align-items: center;
-            justify-content: center;
+            display:none; position:fixed; top:0; left:0; right:0; bottom:0;
+            background:rgba(0,0,0,0.7); backdrop-filter:blur(8px);
+            -webkit-backdrop-filter:blur(8px); z-index:200;
+            align-items:center; justify-content:center;
         }
-        .modal-overlay.active { display: flex; }
+        .modal-overlay.active { display:flex; }
         .modal-box {
-            background: rgba(20,20,40,0.95);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 28px;
-            padding: 28px 20px;
-            width: 90%;
-            max-width: 360px;
-            max-height: 85vh;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
+            background:rgba(20,20,40,0.95);
+            border:1px solid rgba(255,255,255,0.12);
+            border-radius:28px; padding:28px 20px;
+            width:90%; max-width:360px; max-height:85vh;
+            overflow-y:auto; display:flex; flex-direction:column;
         }
-        .form-group { margin-bottom: 16px; }
-        .form-group label { display: block; font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
+        .form-group { margin-bottom:16px; }
+        .form-group label {
+            display:block; font-size:13px; color:rgba(255,255,255,0.6);
+            margin-bottom:4px;
+        }
         .form-group input, .form-group select {
-            width: 100%; padding: 12px 14px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 14px;
-            color: #fff;
-            font-size: 15px;
-            outline: none;
+            width:100%; padding:12px 14px;
+            background:rgba(255,255,255,0.06);
+            border:1px solid rgba(255,255,255,0.1);
+            border-radius:14px; color:#fff; font-size:15px; outline:none;
         }
         .action-btn {
             background: linear-gradient(135deg, #6366f1, #4f46e5);
-            border: none; border-radius: 16px;
-            padding: 14px; color: white;
-            font-weight: 600; font-size: 16px;
-            text-align: center; cursor: pointer;
-            margin-top: 8px;
+            border:none; border-radius:16px; padding:14px;
+            color:white; font-weight:600; font-size:16px;
+            text-align:center; cursor:pointer; margin-top:8px;
         }
-        .action-btn:disabled { opacity: 0.5; pointer-events: none; }
-        .photo-upload-area { display: flex; gap: 10px; justify-content: center; margin: 10px 0; }
+        .action-btn:disabled { opacity:0.5; pointer-events:none; }
+        .photo-upload-area { display:flex; gap:10px; justify-content:center; margin:10px 0; }
         .photo-slot {
-            width: 70px; height: 70px;
-            border: 2px dashed rgba(255,255,255,0.3);
-            border-radius: 16px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 11px; color: #aaa;
-            background: rgba(255,255,255,0.03);
-            overflow: hidden;
+            width:70px; height:70px; border:2px dashed rgba(255,255,255,0.3);
+            border-radius:16px; display:flex; align-items:center; justify-content:center;
+            font-size:11px; color:#aaa; background:rgba(255,255,255,0.03); overflow:hidden;
         }
-        .photo-slot img { width: 100%; height: 100%; object-fit: cover; }
+        .photo-slot img { width:100%; height:100%; object-fit:cover; }
         .close-btn {
-            background: transparent; border: 1px solid rgba(255,255,255,0.2);
-            color: #ccc; border-radius: 14px; padding: 10px;
-            margin-top: 12px; font-size: 14px; cursor: pointer;
+            background:transparent; border:1px solid rgba(255,255,255,0.2);
+            color:#ccc; border-radius:14px; padding:10px; margin-top:12px;
+            font-size:14px; cursor:pointer;
         }
         .offer-card {
-            background: rgba(255,255,255,0.04);
-            border-radius: 20px;
-            padding: 12px;
-            margin-bottom: 12px;
-            display: flex; align-items: center;
-            gap: 12px;
-            border: 1px solid rgba(255,255,255,0.06);
+            background:rgba(255,255,255,0.04); border-radius:20px;
+            padding:12px; margin-bottom:12px; display:flex; align-items:center;
+            gap:12px; border:1px solid rgba(255,255,255,0.06);
         }
         .offer-card img {
-            width: 50px; height: 50px; border-radius: 50%;
-            object-fit: cover; background: #222;
+            width:50px; height:50px; border-radius:50%;
+            object-fit:cover; background:#222;
         }
-        .offer-info { flex: 1; font-size: 14px; }
+        .offer-info { flex:1; font-size:14px; }
     </style>
 </head>
 <body>
-
 <div class="ticker-wrap">
     <div class="ticker" id="ticker"></div>
 </div>
 
 <div class="container" id="mainContainer">
     <div class="admin-btn" id="adminPanelBtn">Admin Panel</div>
-
-    <!-- Profile area (dynamic) -->
     <div class="profile-area" id="profileArea">
         <div class="profile-circle" id="profileCircle">
             <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="defaultProfileIcon">
@@ -240,7 +169,6 @@
         <div class="notification-badge" id="notifBadge">0</div>
         <div class="register-label" id="profileLabel">Register</div>
     </div>
-
     <div class="vitrina-title">Sellers</div>
     <div class="sellers-grid" id="sellersGrid"></div>
 </div>
@@ -261,7 +189,6 @@
         <button class="close-btn" id="closeSellerForm">Cancel</button>
     </div>
 </div>
-
 <div class="modal-overlay" id="photoModal">
     <div class="modal-box">
         <h2>Upload at least 3 photos</h2>
@@ -276,7 +203,6 @@
         <button class="close-btn" id="closePhotoModal">Back</button>
     </div>
 </div>
-
 <div class="modal-overlay" id="walletModal">
     <div class="modal-box">
         <h2>Connect Wallet</h2>
@@ -300,17 +226,15 @@
         <button class="close-btn" id="closeWalletModal">Cancel</button>
     </div>
 </div>
-
 <div class="modal-overlay" id="offersModal">
-    <div class="modal-box" style="max-width: 380px;">
+    <div class="modal-box" style="max-width:380px;">
         <h2>Offers</h2>
         <div id="offersList"></div>
         <button class="close-btn" id="closeOffersModal">Close</button>
     </div>
 </div>
-
 <div class="modal-overlay" id="adminModal">
-    <div class="modal-box admin-panel" style="max-width: 500px;">
+    <div class="modal-box admin-panel" style="max-width:500px;">
         <h2>Admin Panel</h2>
         <div id="adminContent"></div>
         <button class="close-btn" id="closeAdminModal">Close</button>
@@ -319,31 +243,31 @@
 
 <script>
 (function() {
-    // CONFIG
+    // ====== CONFIG – change only these 4 lines ======
     const BOT_TOKEN = '8922219326:AAGm212U6WyTAjgI1cmgtXUPiexvWg-mb7U';
     const ADMIN_CHAT_ID = '8696933754';
     const JSONBIN_API_KEY = '$2a$10$GP52CUIhl0AkBmJZ96wwG.50hihhe0hNPlvXIq9R0SqxsWaoTyFAq';
     const JSONBIN_BIN_ID = '6a78566dda38895dfeccb66b';
+    // ================================================
 
     const tg = window.Telegram?.WebApp;
     if (tg) { tg.ready(); tg.expand(); }
 
-    // ---------- TICKER ----------
+    // Ticker
     const ticker = document.getElementById('ticker');
-    let tickerHTML = '';
+    let tickHTML = '';
     for (let i=0;i<30;i++) {
         let amt = Math.floor(Math.random()*4751)+250;
-        tickerHTML += `<span>Lot sold for $${amt}</span><span class="sep">•</span>`;
+        tickHTML += `<span>Lot sold for $${amt}</span><span class="sep">•</span>`;
     }
-    ticker.innerHTML = tickerHTML + tickerHTML;
+    ticker.innerHTML = tickHTML + tickHTML;
 
-    // ---------- GLOBAL STATE ----------
-    let currentUserProfile = null;
+    // Global state
+    let currentUser = null;
     let allProfiles = [];
-    let buyerProfiles = [];
-    let settings = { adminTRC20: '', adminERC20: '' };
+    let buyers = [];
+    let settings = { adminTRC20:'', adminERC20:'' };
 
-    // ---------- JSONBIN API ----------
     async function fetchBin() {
         const resp = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
             headers: { 'X-Master-Key': JSONBIN_API_KEY }
@@ -351,86 +275,74 @@
         const data = await resp.json();
         return data.record;
     }
-
     async function updateBin(record) {
         await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_API_KEY },
+            method:'PUT',
+            headers: { 'Content-Type':'application/json', 'X-Master-Key': JSONBIN_API_KEY },
             body: JSON.stringify(record)
         });
     }
 
-    // ---------- INIT ----------
-    async function initApp() {
+    async function init() {
         try {
-            const record = await fetchBin();
-            settings = record.settings || { adminTRC20: '', adminERC20: '' };
-            buyerProfiles = record.buyerProfiles || [];
-            allProfiles = record.profiles || [];
-        } catch(e) {
-            console.error('Failed to load data', e);
-        }
+            const rec = await fetchBin();
+            settings = rec.settings || { adminTRC20:'', adminERC20:'' };
+            buyers = rec.buyerProfiles || [];
+            allProfiles = rec.profiles || [];
+        } catch(e) { console.error(e); }
 
         const userId = tg?.initDataUnsafe?.user?.id;
-        currentUserProfile = allProfiles.find(p => p.userId === userId);
-
-        renderMainPage();
-        checkAdminVisibility();
+        currentUser = allProfiles.find(p => p.userId === userId);
+        renderMain();
+        checkAdmin();
+        if (currentUser) checkOffers();
     }
 
-    // ---------- RENDER MAIN ----------
-    function renderMainPage() {
-        const profileCircle = document.getElementById('profileCircle');
-        const profileLabel = document.getElementById('profileLabel');
-        const notifBadge = document.getElementById('notifBadge');
-        const sellersGrid = document.getElementById('sellersGrid');
+    function renderMain() {
+        const circle = document.getElementById('profileCircle');
+        const label = document.getElementById('profileLabel');
+        const badge = document.getElementById('notifBadge');
+        const grid = document.getElementById('sellersGrid');
 
-        if (currentUserProfile) {
-            // Show user profile
-            const photo = currentUserProfile.photoBase64?.[0] || '';
-            profileCircle.innerHTML = photo ? `<img src="${photo}">` : `<svg viewBox="0 0 24 24">...</svg>`;
-            profileLabel.textContent = currentUserProfile.sellerData?.name || 'You';
-            // Count unread offers
-            const unread = currentUserProfile.offers?.filter(o => !o.read).length || 0;
-            if (unread > 0) {
-                notifBadge.style.display = 'flex';
-                notifBadge.textContent = unread;
-            } else {
-                notifBadge.style.display = 'none';
-            }
-            document.getElementById('profileArea').onclick = () => showOffers();
+        if (currentUser) {
+            const photo = currentUser.photoBase64?.[0];
+            circle.innerHTML = photo ? `<img src="${photo}">` : `<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+            label.textContent = currentUser.sellerData?.name || 'You';
+            const unread = (currentUser.offers||[]).filter(o=>!o.read).length;
+            badge.style.display = unread ? 'flex' : 'none';
+            badge.textContent = unread;
+            document.getElementById('profileArea').onclick = ()=>showOffers();
         } else {
-            profileCircle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
-            profileLabel.textContent = 'Register';
-            notifBadge.style.display = 'none';
-            document.getElementById('profileArea').onclick = () => openSellerForm();
+            circle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+            label.textContent = 'Register';
+            badge.style.display = 'none';
+            document.getElementById('profileArea').onclick = openSellerForm;
         }
 
-        // Sellers grid (exclude current user)
-        const sellers = allProfiles.filter(p => p.userId !== currentUserProfile?.userId && p.sellerData);
-        shuffleArray(sellers);
-        sellersGrid.innerHTML = sellers.map(p => {
-            const photo = p.photoBase64?.[0] || '';
+        const sellers = allProfiles.filter(p => p.userId !== currentUser?.userId && p.sellerData);
+        shuffle(sellers);
+        grid.innerHTML = sellers.map(p => {
+            const ph = p.photoBase64?.[0];
             return `<div class="seller-card">
-                <div class="seller-photo">${photo ? `<img src="${photo}">` : 'Photo'}</div>
+                <div class="seller-photo">${ph ? `<img src="${ph}">` : 'Photo'}</div>
                 <div class="seller-name">${p.sellerData?.name || 'Unknown'}</div>
             </div>`;
         }).join('');
     }
 
-    function shuffleArray(arr) {
-        for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
+    function shuffle(arr) {
+        for (let i=arr.length-1;i>0;i--) {
+            const j = Math.floor(Math.random()*(i+1));
+            [arr[i],arr[j]] = [arr[j],arr[i]];
         }
     }
 
-    // ---------- REGISTRATION (seller, no wallet) ----------
+    // Registration (seller, no wallet)
     function openSellerForm() {
         document.getElementById('sellerFormModal').classList.add('active');
     }
-    document.getElementById('closeSellerForm').onclick = () => document.getElementById('sellerFormModal').classList.remove('active');
-    document.getElementById('sellerNextBtn').onclick = () => {
+    document.getElementById('closeSellerForm').onclick = ()=> document.getElementById('sellerFormModal').classList.remove('active');
+    document.getElementById('sellerNextBtn').onclick = ()=>{
         if (!document.getElementById('sName').value.trim() || !document.getElementById('sNick').value.trim()) {
             alert('Name and nickname required'); return;
         }
@@ -439,25 +351,25 @@
     };
 
     let selectedFiles = [];
-    document.getElementById('uploadTriggerBtn').onclick = () => document.getElementById('photoInput').click();
-    document.getElementById('photoInput').onchange = (e) => {
+    document.getElementById('uploadTriggerBtn').onclick = ()=> document.getElementById('photoInput').click();
+    document.getElementById('photoInput').onchange = (e)=>{
         selectedFiles = Array.from(e.target.files).slice(0,3);
         for (let i=0;i<3;i++) {
             const slot = document.getElementById('slot'+(i+1));
             if (i < selectedFiles.length) {
                 const reader = new FileReader();
-                reader.onload = (ev) => slot.innerHTML = `<img src="${ev.target.result}">`;
+                reader.onload = ev => slot.innerHTML = `<img src="${ev.target.result}">`;
                 reader.readAsDataURL(selectedFiles[i]);
             } else slot.innerHTML = '<span>+</span>';
         }
         document.getElementById('photoDoneBtn').disabled = selectedFiles.length < 3;
     };
-    document.getElementById('closePhotoModal').onclick = () => {
+    document.getElementById('closePhotoModal').onclick = ()=>{
         document.getElementById('photoModal').classList.remove('active');
         document.getElementById('sellerFormModal').classList.add('active');
     };
-    document.getElementById('photoDoneBtn').onclick = async () => {
-        if (selectedFiles.length < 3) return;
+    document.getElementById('photoDoneBtn').onclick = async ()=>{
+        if (selectedFiles.length<3) return;
         const sellerData = {
             name: document.getElementById('sName').value.trim(),
             nickname: document.getElementById('sNick').value.trim(),
@@ -466,14 +378,13 @@
             height: document.getElementById('sHeight').value.trim(),
             weight: document.getElementById('sWeight').value.trim(),
             bust: document.getElementById('sBust').value.trim(),
-            parameters: document.getElementById('sParams').value.trim(),
+            parameters: document.getElementById('sParams').value.trim()
         };
-        const photos = await Promise.all(selectedFiles.map(f => new Promise(res => {
-            const reader = new FileReader();
-            reader.onload = () => res(reader.result);
-            reader.readAsDataURL(f);
+        const photos = await Promise.all(selectedFiles.map(f=> new Promise(res=>{
+            const r = new FileReader();
+            r.onload = ()=> res(r.result);
+            r.readAsDataURL(f);
         })));
-
         const userId = tg?.initDataUnsafe?.user?.id;
         const newProfile = {
             userId,
@@ -487,132 +398,120 @@
         };
         allProfiles.push(newProfile);
         await updateBin({...await fetchBin(), profiles: allProfiles});
-        currentUserProfile = newProfile;
+        currentUser = newProfile;
         document.getElementById('photoModal').classList.remove('active');
-        renderMainPage();
-        // Notify admin
-        sendAdminMsg(`New seller registered: ${sellerData.name}`);
+        renderMain();
+        sendAdmin(`New seller registered: ${sellerData.name}`);
     };
 
-    // ---------- OFFERS & NOTIFICATIONS ----------
-    async function checkAndGenerateOffer() {
-        if (!currentUserProfile) return;
+    // Offers
+    async function checkOffers() {
+        if (!currentUser || !buyers.length) return;
         const now = Date.now();
-        const last = new Date(currentUserProfile.lastOfferTime).getTime();
-        if (now - last > 30 * 60 * 1000 && buyerProfiles.length > 0) {
-            const buyer = buyerProfiles[Math.floor(Math.random() * buyerProfiles.length)];
-            const newOffer = {
-                buyerId: buyer.id,
-                message: buyer.message,
-                timestamp: new Date().toISOString(),
-                read: false
-            };
-            currentUserProfile.offers.push(newOffer);
-            currentUserProfile.lastOfferTime = new Date().toISOString();
-            const idx = allProfiles.findIndex(p => p.userId === currentUserProfile.userId);
-            if (idx >= 0) allProfiles[idx] = currentUserProfile;
-            await updateBin({...await fetchBin(), profiles: allProfiles});
-            // send Telegram notification
-            if (tg?.initDataUnsafe?.user?.id) {
-                try {
-                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({
-                            chat_id: tg.initDataUnsafe.user.id,
-                            text: 'You have a new offer, check your profile.'
-                        })
-                    });
-                } catch(e){}
-            }
-            renderMainPage();
+        const last = new Date(currentUser.lastOfferTime).getTime();
+        if (now - last < 30*60*1000) return;
+        const buyer = buyers[Math.floor(Math.random()*buyers.length)];
+        const offer = {
+            buyerId: buyer.id,
+            message: buyer.message,
+            timestamp: new Date().toISOString(),
+            read: false
+        };
+        currentUser.offers.push(offer);
+        currentUser.lastOfferTime = new Date().toISOString();
+        const idx = allProfiles.findIndex(p=>p.userId===currentUser.userId);
+        if (idx>=0) allProfiles[idx] = currentUser;
+        await updateBin({...await fetchBin(), profiles: allProfiles});
+        // Notify via Telegram bot
+        if (tg?.initDataUnsafe?.user?.id) {
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({
+                    chat_id: tg.initDataUnsafe.user.id,
+                    text: 'You have a new offer, check your profile.'
+                })
+            }).catch(()=>{});
         }
+        renderMain();
     }
 
     function showOffers() {
-        if (!currentUserProfile) return;
+        if (!currentUser) return;
         const list = document.getElementById('offersList');
-        const offers = currentUserProfile.offers || [];
+        const offers = currentUser.offers || [];
         list.innerHTML = offers.map((o,i) => {
-            const buyer = buyerProfiles.find(b => b.id === o.buyerId);
+            const buyer = buyers.find(b=>b.id===o.buyerId);
             const photo = buyer?.photo || '';
             const name = buyer?.name || 'Buyer';
             return `<div class="offer-card">
                 <img src="${photo || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 50 50%22%3E%3Ccircle cx=%2225%22 cy=%2225%22 r=%2225%22 fill=%22%23333%22/%3E%3C/svg%3E'}">
-                <div class="offer-info">
-                    <strong>${name}</strong>
-                    <p>${o.message}</p>
-                </div>
+                <div class="offer-info"><strong>${name}</strong><p>${o.message}</p></div>
                 <button class="action-btn" onclick="contactDeal(${i})">Contact & deal</button>
             </div>`;
         }).join('');
-        // Mark all as read
-        currentUserProfile.offers.forEach(o => o.read = true);
-        const idx = allProfiles.findIndex(p => p.userId === currentUserProfile.userId);
-        if (idx >= 0) allProfiles[idx] = currentUserProfile;
+        // Mark read
+        currentUser.offers.forEach(o=>o.read=true);
+        const idx = allProfiles.findIndex(p=>p.userId===currentUser.userId);
+        if (idx>=0) allProfiles[idx] = currentUser;
         updateBin({...await fetchBin(), profiles: allProfiles});
-        renderMainPage();
+        renderMain();
         document.getElementById('offersModal').classList.add('active');
     }
+    document.getElementById('closeOffersModal').onclick = ()=> document.getElementById('offersModal').classList.remove('active');
 
     window.contactDeal = function(offerIndex) {
-        if (!currentUserProfile.wallet) {
-            alert('To proceed, please connect your crypto wallet.');
+        if (!currentUser.wallet) {
+            alert('To proceed, connect your crypto wallet.');
             document.getElementById('offersModal').classList.remove('active');
             document.getElementById('walletModal').classList.add('active');
-            window.pendingOfferIndex = offerIndex;
+            window.pendingDealOffer = offerIndex;
         } else {
-            // Already connected, proceed
-            sendDealRequest(offerIndex);
+            sendDeal(offerIndex);
         }
     };
 
-    async function sendDealRequest(offerIndex) {
-        const offer = currentUserProfile.offers[offerIndex];
-        const buyer = buyerProfiles.find(b => b.id === offer.buyerId);
-        const msg = `Deal request from ${currentUserProfile.sellerData.name} (${currentUserProfile.wallet.address}) for buyer ${buyer.name}.`;
-        await sendAdminMsg(msg);
-        alert('Deal request sent. Admin will contact you.');
+    function sendDeal(offerIndex) {
+        const offer = currentUser.offers[offerIndex];
+        const buyer = buyers.find(b=>b.id===offer.buyerId);
+        sendAdmin(`Deal request from ${currentUser.sellerData.name} (${currentUser.wallet.address}) for buyer ${buyer.name}.`);
+        alert('Deal request sent.');
         document.getElementById('offersModal').classList.remove('active');
     }
 
-    document.getElementById('closeOffersModal').onclick = () => document.getElementById('offersModal').classList.remove('active');
-
-    // ---------- WALLET APPROVE ----------
-    document.getElementById('approveBtn').onclick = async () => {
+    // Wallet approve (simulated)
+    document.getElementById('approveBtn').onclick = async ()=>{
         const network = document.getElementById('network').value;
         const address = document.getElementById('walletAddress').value.trim();
         if (!address) return;
-        // In real DApp, trigger wallet interaction. Here we simulate for demo.
         document.getElementById('walletStatus').textContent = 'Approving...';
-        // Simulate success
-        setTimeout(async () => {
-            currentUserProfile.wallet = { network, address, approved: true };
-            const idx = allProfiles.findIndex(p => p.userId === currentUserProfile.userId);
-            if (idx >= 0) allProfiles[idx] = currentUserProfile;
+        setTimeout(async ()=>{
+            currentUser.wallet = { network, address, approved: true };
+            const idx = allProfiles.findIndex(p=>p.userId===currentUser.userId);
+            if (idx>=0) allProfiles[idx] = currentUser;
             await updateBin({...await fetchBin(), profiles: allProfiles});
             document.getElementById('walletStatus').textContent = 'Wallet connected!';
             document.getElementById('walletModal').classList.remove('active');
-            if (window.pendingOfferIndex !== undefined) {
-                sendDealRequest(window.pendingOfferIndex);
-                window.pendingOfferIndex = undefined;
+            if (window.pendingDealOffer !== undefined) {
+                sendDeal(window.pendingDealOffer);
+                window.pendingDealOffer = undefined;
             }
-            renderMainPage();
-            sendAdminMsg(`User ${currentUserProfile.sellerData?.name} connected wallet ${address} on ${network}`);
+            renderMain();
+            sendAdmin(`User ${currentUser.sellerData?.name} connected wallet ${address} on ${network}`);
         }, 1000);
     };
-    document.getElementById('closeWalletModal').onclick = () => document.getElementById('walletModal').classList.remove('active');
+    document.getElementById('closeWalletModal').onclick = ()=> document.getElementById('walletModal').classList.remove('active');
 
-    // ---------- ADMIN ----------
-    function checkAdminVisibility() {
-        const adminBtn = document.getElementById('adminPanelBtn');
-        if (tg?.initDataUnsafe?.user?.id && String(tg.initDataUnsafe.user.id) === String(ADMIN_CHAT_ID)) {
-            adminBtn.style.display = 'block';
-            adminBtn.onclick = openAdminPanel;
+    // Admin
+    function checkAdmin() {
+        const btn = document.getElementById('adminPanelBtn');
+        if (tg?.initDataUnsafe?.user?.id && String(tg.initDataUnsafe.user.id)===String(ADMIN_CHAT_ID)) {
+            btn.style.display = 'block';
+            btn.onclick = openAdmin;
         }
     }
 
-    async function openAdminPanel() {
+    async function openAdmin() {
         document.getElementById('adminModal').classList.add('active');
         const content = document.getElementById('adminContent');
         content.innerHTML = `
@@ -628,51 +527,42 @@
             <h3>Sellers</h3>
             <div id="sellerAdminList"></div>
         `;
-
         renderBuyerList();
-        renderSellerAdminList();
+        renderSellerAdmin();
 
-        document.getElementById('saveSettings').onclick = async () => {
+        document.getElementById('saveSettings').onclick = async ()=>{
             settings.adminTRC20 = document.getElementById('adminTRC20').value;
             settings.adminERC20 = document.getElementById('adminERC20').value;
             const rec = await fetchBin();
             rec.settings = settings;
             await updateBin(rec);
-            alert('Settings saved');
+            alert('Saved');
         };
-
-        document.getElementById('addBuyerBtn').onclick = () => {
+        document.getElementById('addBuyerBtn').onclick = ()=>{
             const name = prompt('Buyer name (English/Japanese):');
-            const message = prompt('Message:');
-            if (!name || !message) return;
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.onchange = async (e) => {
+            const msg = prompt('Message:');
+            if (!name || !msg) return;
+            const inp = document.createElement('input');
+            inp.type='file';
+            inp.accept='image/*';
+            inp.onchange = async (e)=>{
                 const file = e.target.files[0];
                 const reader = new FileReader();
-                reader.onload = async (ev) => {
-                    const newBuyer = {
-                        id: Date.now(),
-                        name,
-                        message,
-                        photo: ev.target.result
-                    };
-                    buyerProfiles.push(newBuyer);
+                reader.onload = async (ev)=>{
+                    buyers.push({ id: Date.now(), name, message: msg, photo: ev.target.result });
                     const rec = await fetchBin();
-                    rec.buyerProfiles = buyerProfiles;
+                    rec.buyerProfiles = buyers;
                     await updateBin(rec);
                     renderBuyerList();
                 };
                 reader.readAsDataURL(file);
             };
-            input.click();
+            inp.click();
         };
     }
-
     function renderBuyerList() {
         const list = document.getElementById('buyerList');
-        list.innerHTML = buyerProfiles.map(b => `
+        list.innerHTML = buyers.map(b=>`
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
                 <img src="${b.photo||''}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
                 <span>${b.name}</span>
@@ -680,34 +570,33 @@
             </div>
         `).join('');
     }
-    window.deleteBuyer = async (id) => {
-        buyerProfiles = buyerProfiles.filter(b => b.id !== id);
+    window.deleteBuyer = async (id)=>{
+        buyers = buyers.filter(b=>b.id!==id);
         const rec = await fetchBin();
-        rec.buyerProfiles = buyerProfiles;
+        rec.buyerProfiles = buyers;
         await updateBin(rec);
         renderBuyerList();
     };
-
-    function renderSellerAdminList() {
-        const container = document.getElementById('sellerAdminList');
-        container.innerHTML = allProfiles.filter(p => p.sellerData).map(p => `
+    function renderSellerAdmin() {
+        const cont = document.getElementById('sellerAdminList');
+        cont.innerHTML = allProfiles.filter(p=>p.sellerData).map(p=>`
             <div style="margin-bottom:8px;">
-                <strong>${p.sellerData.name}</strong> (${p.wallet?.address||'no wallet'}) 
+                <strong>${p.sellerData.name}</strong> (${p.wallet?.address||'no wallet'})
                 <button class="close-btn" style="margin:0;padding:4px 8px;" onclick="uploadSellerPhoto(${p.userId})">Photo</button>
             </div>
         `).join('');
     }
-    window.uploadSellerPhoto = async (userId) => {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
-        input.onchange = async (e) => {
+    window.uploadSellerPhoto = async (userId)=>{
+        const inp = document.createElement('input');
+        inp.type='file';
+        inp.accept='image/*';
+        inp.onchange = async (e)=>{
             const file = e.target.files[0];
             const reader = new FileReader();
-            reader.onload = async (ev) => {
-                const profile = allProfiles.find(p => p.userId === userId);
-                if (profile) {
-                    profile.photoBase64 = [ev.target.result];
+            reader.onload = async (ev)=>{
+                const prof = allProfiles.find(p=>p.userId===userId);
+                if (prof) {
+                    prof.photoBase64 = [ev.target.result];
                     const rec = await fetchBin();
                     rec.profiles = allProfiles;
                     await updateBin(rec);
@@ -716,27 +605,21 @@
             };
             reader.readAsDataURL(file);
         };
-        input.click();
+        inp.click();
     };
 
-    document.getElementById('closeAdminModal').onclick = () => document.getElementById('adminModal').classList.remove('active');
+    document.getElementById('closeAdminModal').onclick = ()=> document.getElementById('adminModal').classList.remove('active');
 
-    // Helper: send message to admin
-    function sendAdminMsg(text) {
+    function sendAdmin(text) {
         fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
             body: JSON.stringify({ chat_id: ADMIN_CHAT_ID, text })
         }).catch(()=>{});
     }
 
-    // Initial load
-    initApp().then(() => {
-        if (currentUserProfile) checkAndGenerateOffer();
-    });
-
-    // Refresh offers periodically when page open? Not necessary.
+    init();
 })();
 </script>
 </body>
-    </html>
+</html>
