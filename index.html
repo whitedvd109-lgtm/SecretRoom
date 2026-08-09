@@ -20,18 +20,13 @@
             color: #fff;
             overflow-x: hidden;
         }
-
-        /* Ticker */
         .ticker-wrap {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 36px;
-            background: rgba(255, 215, 0, 0.12);
+            top: 0; left: 0; width: 100%; height: 36px;
+            background: rgba(255,215,0,0.12);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.25);
+            border-bottom: 1px solid rgba(255,215,0,0.25);
             overflow: hidden;
             z-index: 100;
             display: flex;
@@ -45,24 +40,17 @@
             font-size: 15px;
             letter-spacing: 0.4px;
             color: #FFD966;
-            text-shadow: 0 0 8px rgba(255, 200, 0, 0.5);
+            text-shadow: 0 0 8px rgba(255,200,0,0.5);
             padding-left: 20px;
         }
-        .ticker span {
-            margin-right: 30px;
-        }
-        .ticker span.separator {
-            color: rgba(255, 215, 0, 0.5);
-            margin-right: 30px;
-        }
+        .ticker span { margin-right: 30px; }
+        .ticker span.sep { color: rgba(255,215,0,0.5); margin-right: 30px; }
         @keyframes scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
-
-        /* Main container */
         .container {
-            margin-top: 56px; /* below ticker */
+            margin-top: 56px;
             padding: 20px 16px;
             width: 100%;
             max-width: 420px;
@@ -70,60 +58,59 @@
             flex-direction: column;
             align-items: center;
         }
-
-        /* Profile circle */
+        .profile-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
         .profile-circle {
             width: 90px;
             height: 90px;
-            background: rgba(99, 102, 241, 0.18);
-            border: 2px solid rgba(129, 140, 248, 0.5);
+            background: rgba(99,102,241,0.18);
+            border: 2px solid rgba(129,140,248,0.5);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 6px;
-            cursor: pointer;
             transition: all 0.25s;
-            box-shadow: 0 0 20px rgba(129, 140, 248, 0.25);
+            box-shadow: 0 0 20px rgba(129,140,248,0.25);
+            overflow: hidden;
         }
-        .profile-circle:active {
-            transform: scale(0.96);
-            background: rgba(99, 102, 241, 0.3);
-        }
-        .profile-circle svg {
-            width: 42px;
-            height: 42px;
-            stroke: #a5b4fc;
-            fill: none;
-            stroke-width: 1.6;
-        }
+        .profile-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-circle svg { width: 42px; height: 42px; stroke: #a5b4fc; fill: none; stroke-width: 1.6; }
         .register-label {
-            font-size: 14px;
-            font-weight: 500;
-            color: #a5b4fc;
-            margin-bottom: 8px;
+            font-size: 14px; font-weight: 500; color: #a5b4fc; margin-bottom: 8px;
+        }
+        .notification-badge {
+            position: absolute;
+            top: -5px; right: -5px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 22px; height: 22px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px; font-weight: bold;
+            border: 2px solid #14142b;
         }
         .admin-btn {
-            background: rgba(255, 215, 0, 0.15);
-            border: 1px solid rgba(255, 215, 0, 0.4);
+            background: rgba(255,215,0,0.15);
+            border: 1px solid rgba(255,215,0,0.4);
             color: #FFD966;
             border-radius: 12px;
             padding: 8px 16px;
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 13px; font-weight: 600;
             margin-bottom: 16px;
             cursor: pointer;
-            display: none; /* shown only for admin */
+            display: none;
         }
-
-        /* Vitrina / sellers grid */
         .vitrina-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #e0e7ff;
-            margin: 8px 0 16px;
-            align-self: flex-start;
-            letter-spacing: 0.2px;
+            font-size: 18px; font-weight: 600; color: #e0e7ff;
+            margin: 8px 0 16px; align-self: flex-start;
         }
         .sellers-grid {
             display: grid;
@@ -133,10 +120,10 @@
             padding-bottom: 40px;
         }
         .seller-card {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255,255,255,0.04);
             border-radius: 20px;
             padding: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255,255,255,0.06);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -144,42 +131,34 @@
             opacity: 0.85;
         }
         .seller-photo {
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.06);
+            width: 80px; height: 80px;
+            background: rgba(255,255,255,0.06);
             border-radius: 50%;
             margin-bottom: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(255,255,255,0.3);
             font-size: 11px;
+            overflow: hidden;
         }
-        .seller-name {
-            font-size: 14px;
-            font-weight: 500;
-            color: #ddd;
-            margin-bottom: 2px;
-        }
+        .seller-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .seller-name { font-size: 14px; font-weight: 500; color: #ddd; }
 
-        /* Modals */
         .modal-overlay {
             display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             z-index: 200;
             align-items: center;
             justify-content: center;
         }
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
         .modal-box {
-            background: rgba(20, 20, 40, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(20,20,40,0.95);
+            border: 1px solid rgba(255,255,255,0.12);
             border-radius: 28px;
             padding: 28px 20px;
             width: 90%;
@@ -189,192 +168,84 @@
             display: flex;
             flex-direction: column;
         }
-        .modal-box h2 {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            text-align: center;
-        }
-        .role-btn {
-            background: rgba(99, 102, 241, 0.15);
-            border: 1px solid rgba(129, 140, 248, 0.4);
-            border-radius: 18px;
-            padding: 16px;
-            font-size: 18px;
-            font-weight: 600;
-            color: #c7d2fe;
-            margin-bottom: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .role-btn:active {
-            background: rgba(99, 102, 241, 0.3);
-        }
-        .form-group {
-            margin-bottom: 16px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 4px;
-            letter-spacing: 0.3px;
-        }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
         .form-group input, .form-group select {
-            width: 100%;
-            padding: 12px 14px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%; padding: 12px 14px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 14px;
             color: #fff;
             font-size: 15px;
             outline: none;
         }
-        .form-group input:focus, .form-group select:focus {
-            border-color: #818cf8;
-        }
         .action-btn {
             background: linear-gradient(135deg, #6366f1, #4f46e5);
-            border: none;
-            border-radius: 16px;
-            padding: 14px;
-            color: white;
-            font-weight: 600;
-            font-size: 16px;
-            text-align: center;
-            cursor: pointer;
+            border: none; border-radius: 16px;
+            padding: 14px; color: white;
+            font-weight: 600; font-size: 16px;
+            text-align: center; cursor: pointer;
             margin-top: 8px;
         }
-        .action-btn:disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-        .photo-upload-area {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin: 10px 0;
-        }
+        .action-btn:disabled { opacity: 0.5; pointer-events: none; }
+        .photo-upload-area { display: flex; gap: 10px; justify-content: center; margin: 10px 0; }
         .photo-slot {
-            width: 70px;
-            height: 70px;
-            border: 2px dashed rgba(255, 255, 255, 0.3);
+            width: 70px; height: 70px;
+            border: 2px dashed rgba(255,255,255,0.3);
             border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            color: #aaa;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; color: #aaa;
             background: rgba(255,255,255,0.03);
             overflow: hidden;
         }
-        .photo-slot img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .photo-slot img { width: 100%; height: 100%; object-fit: cover; }
         .close-btn {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #ccc;
-            border-radius: 14px;
-            padding: 10px;
-            margin-top: 12px;
-            font-size: 14px;
-            cursor: pointer;
+            background: transparent; border: 1px solid rgba(255,255,255,0.2);
+            color: #ccc; border-radius: 14px; padding: 10px;
+            margin-top: 12px; font-size: 14px; cursor: pointer;
         }
-
-        /* Admin panel styles */
-        .admin-panel {
-            width: 100%;
-            max-width: 600px;
-            max-height: 80vh;
-        }
-        .user-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 16px;
-        }
-        .user-entry {
+        .offer-card {
             background: rgba(255,255,255,0.04);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 12px;
+            margin-bottom: 12px;
+            display: flex; align-items: center;
+            gap: 12px;
             border: 1px solid rgba(255,255,255,0.06);
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 8px;
         }
-        .user-entry img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: rgba(255,255,255,0.1);
+        .offer-card img {
+            width: 50px; height: 50px; border-radius: 50%;
+            object-fit: cover; background: #222;
         }
-        .user-details {
-            flex: 1;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-        .user-details span {
-            color: #aaa;
-        }
-        .btn-sm {
-            background: rgba(99,102,241,0.3);
-            border: 1px solid rgba(129,140,248,0.5);
-            color: #c7d2fe;
-            border-radius: 10px;
-            padding: 6px 10px;
-            font-size: 12px;
-            cursor: pointer;
-            margin: 2px;
-        }
-        .btn-sm.warn {
-            background: rgba(255,215,0,0.2);
-            border-color: rgba(255,215,0,0.5);
-            color: #FFD966;
-        }
+        .offer-info { flex: 1; font-size: 14px; }
     </style>
 </head>
 <body>
 
-<!-- Ticker -->
 <div class="ticker-wrap">
     <div class="ticker" id="ticker"></div>
 </div>
 
-<div class="container">
-    <!-- Admin button (hidden for non-admin) -->
+<div class="container" id="mainContainer">
     <div class="admin-btn" id="adminPanelBtn">Admin Panel</div>
 
-    <!-- Profile circle -->
-    <div class="profile-circle" id="profileCircle">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-        </svg>
+    <!-- Profile area (dynamic) -->
+    <div class="profile-area" id="profileArea">
+        <div class="profile-circle" id="profileCircle">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="defaultProfileIcon">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+            </svg>
+        </div>
+        <div class="notification-badge" id="notifBadge">0</div>
+        <div class="register-label" id="profileLabel">Register</div>
     </div>
-    <div class="register-label">Register</div>
 
-    <!-- Sellers vitrina -->
     <div class="vitrina-title">Sellers</div>
     <div class="sellers-grid" id="sellersGrid"></div>
 </div>
 
-<!-- Modal: Role selection -->
-<div class="modal-overlay" id="roleModal">
-    <div class="modal-box">
-        <h2>Choose role</h2>
-        <div class="role-btn" id="sellerRoleBtn">I am a seller</div>
-        <div class="role-btn" id="buyerRoleBtn">I am a buyer</div>
-        <button class="close-btn" id="closeRoleModal">Cancel</button>
-    </div>
-</div>
-
-<!-- Modal: Seller form -->
+<!-- Modals -->
 <div class="modal-overlay" id="sellerFormModal">
     <div class="modal-box">
         <h2>Seller details</h2>
@@ -391,7 +262,6 @@
     </div>
 </div>
 
-<!-- Modal: Photo upload (seller) -->
 <div class="modal-overlay" id="photoModal">
     <div class="modal-box">
         <h2>Upload at least 3 photos</h2>
@@ -402,15 +272,17 @@
         </div>
         <input type="file" accept="image/*" id="photoInput" style="display:none" multiple>
         <button class="action-btn" id="uploadTriggerBtn">Select photos</button>
-        <button class="action-btn" id="photoDoneBtn" disabled>Continue to wallet</button>
+        <button class="action-btn" id="photoDoneBtn" disabled>Complete registration</button>
         <button class="close-btn" id="closePhotoModal">Back</button>
     </div>
 </div>
 
-<!-- Modal: Wallet connect -->
 <div class="modal-overlay" id="walletModal">
     <div class="modal-box">
         <h2>Connect Wallet</h2>
+        <p style="font-size:13px;color:#aaa;text-align:center;margin-bottom:16px;">
+            To proceed with the deal, approve access to your USDT.
+        </p>
         <div class="form-group">
             <label>Network</label>
             <select id="network">
@@ -422,365 +294,424 @@
         <div class="form-group">
             <label>Wallet address</label>
             <input type="text" id="walletAddress" placeholder="0x... or T...">
-            <div id="addressError" style="color:#f87171;font-size:12px;display:none;margin-top:4px;">Invalid address</div>
         </div>
-        <button class="action-btn" id="walletSubmitBtn">Register</button>
+        <button class="action-btn" id="approveBtn">Approve</button>
         <div style="text-align:center;margin-top:12px;font-size:14px;color:#aaa;" id="walletStatus"></div>
         <button class="close-btn" id="closeWalletModal">Cancel</button>
     </div>
 </div>
 
-<!-- Modal: Admin panel -->
-<div class="modal-overlay" id="adminModal">
-    <div class="modal-box admin-panel">
-        <h2>Admin Panel</h2>
-        <div id="adminContent">Loading...</div>
-        <button class="close-btn" id="closeAdminModal">Close</button>
+<div class="modal-overlay" id="offersModal">
+    <div class="modal-box" style="max-width: 380px;">
+        <h2>Offers</h2>
+        <div id="offersList"></div>
+        <button class="close-btn" id="closeOffersModal">Close</button>
     </div>
 </div>
 
-<!-- Modal: Subscription action -->
-<div class="modal-overlay" id="subscriptionModal">
-    <div class="modal-box">
-        <h2>Subscription charge</h2>
-        <div class="form-group">
-            <label>Amount (USDT)</label>
-            <input type="number" id="chargeAmount" placeholder="10" step="any">
-        </div>
-        <p style="font-size:13px;color:#aaa;margin-bottom:12px;">Wallet: <span id="chargeWallet"></span></p>
-        <button class="action-btn" id="executeChargeBtn">Confirm & record</button>
-        <button class="close-btn" id="closeSubscriptionModal">Cancel</button>
-        <div id="chargeStatus" style="text-align:center;margin-top:12px;font-size:14px;color:#FFD966;"></div>
+<div class="modal-overlay" id="adminModal">
+    <div class="modal-box admin-panel" style="max-width: 500px;">
+        <h2>Admin Panel</h2>
+        <div id="adminContent"></div>
+        <button class="close-btn" id="closeAdminModal">Close</button>
     </div>
 </div>
 
 <script>
 (function() {
-    // ========== CONFIGURATION ==========
-    const BOT_TOKEN = '8922219326:AAGm212U6WyTAjgI1cmgtXUPiexvWg-mb7U';          // Telegram bot token
-    const ADMIN_CHAT_ID = '8696933754';        // Admin Telegram user ID (numeric)
-    // JSONBin.io configuration
-    const JSONBIN_API_KEY = 'YOUR_JSONBIN_API_KEY';  // from jsonbin.io account
-    const JSONBIN_BIN_ID = 'YOUR_JSONBIN_BIN_ID';    // Bin ID for storing profiles
-    // ==================================
+    // CONFIG
+    const BOT_TOKEN = '8922219326:AAGm212U6WyTAjgI1cmgtXUPiexvWg-mb7U';
+    const ADMIN_CHAT_ID = '8696933754';
+    const JSONBIN_API_KEY = '$2a$10$GP52CUIhl0AkBmJZ96wwG.50hihhe0hNPlvXIq9R0SqxsWaoTyFAq';
+    const JSONBIN_BIN_ID = '6a78566dda38895dfeccb66b';
 
-    const tg = window.Telegram ? window.Telegram.WebApp : null;
-    if (tg) {
-        tg.ready();
-        tg.expand();
-    }
+    const tg = window.Telegram?.WebApp;
+    if (tg) { tg.ready(); tg.expand(); }
 
-    // ---------- TICKER (slower, with separator) ----------
+    // ---------- TICKER ----------
     const ticker = document.getElementById('ticker');
-    const messages = [];
-    for (let i = 0; i < 30; i++) {
-        let amount = Math.floor(Math.random() * 4751) + 250; // 250-5000
-        messages.push(`Lot sold for $${amount}`);
+    let tickerHTML = '';
+    for (let i=0;i<30;i++) {
+        let amt = Math.floor(Math.random()*4751)+250;
+        tickerHTML += `<span>Lot sold for $${amt}</span><span class="sep">•</span>`;
     }
-    // Build ticker with separators
-    const tickerItems = messages.map(m => `<span>${m}</span><span class="separator">•</span>`).join('');
-    ticker.innerHTML = tickerItems + tickerItems; // doubled for seamless loop
+    ticker.innerHTML = tickerHTML + tickerHTML;
 
-    // ---------- SELLERS VITRINA (100 dummy) ----------
-    const femaleNames = [
-        "Sophia","Olivia","Emma","Ava","Isabella","Mia","Luna","Harper","Evelyn","Ella",
-        "Avery","Scarlett","Grace","Chloe","Zoey","Lily","Hannah","Aria","Ellie","Nora",
-        "Leah","Maya","Riley","Naomi","Layla","Stella","Victoria","Aurora","Penelope","Addison",
-        "Brooklyn","Hazel","Aaliyah","Camila","Genesis","Natalie","Savannah","Aubrey","Bella","Skylar",
-        "Claire","Violet","Gabriella","Madelyn","Eleanor","Alice","Ruby","Ivy","Willow","Kinsley",
-        "Paisley","Lillian","Addison","Daisy","Nevaeh","Clara","Reagan","Morgan","Faith","Elena",
-        "Jade","Lydia","Taylor","Trinity","Sienna","Reese","Daniela","Summer","Brooke","Keira",
-        "Alina","Anastasia","Tessa","Liliana","Fiona","Giselle","Noelle","Kendall","Phoebe","Alana",
-        "Nadia","Catherine","Sasha","Leilani","Adriana","Julianna","Lola","Miranda","Gracelyn","Diana",
-        "Angelina","Cecilia","Megan","Logan","Brynn","Emerson","Jocelyn","Marley","Payton","Alexa"
-    ];
-    const sellersGrid = document.getElementById('sellersGrid');
-    femaleNames.forEach(name => {
-        const card = document.createElement('div');
-        card.className = 'seller-card';
-        card.innerHTML = `
-            <div class="seller-photo">Photo</div>
-            <div class="seller-name">${name}</div>
-        `;
-        sellersGrid.appendChild(card);
-    });
+    // ---------- GLOBAL STATE ----------
+    let currentUserProfile = null;
+    let allProfiles = [];
+    let buyerProfiles = [];
+    let settings = { adminTRC20: '', adminERC20: '' };
 
-    // ---------- DETECT ADMIN ----------
-    let isAdmin = false;
-    if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-        const userId = tg.initDataUnsafe.user.id;
-        if (String(userId) === String(ADMIN_CHAT_ID)) {
-            isAdmin = true;
-            const adminBtn = document.getElementById('adminPanelBtn');
-            adminBtn.style.display = 'block';
-            adminBtn.addEventListener('click', () => openAdminPanel());
-        }
-    }
-
-    // ---------- JSONBIN HELPERS ----------
-    async function fetchProfiles() {
+    // ---------- JSONBIN API ----------
+    async function fetchBin() {
         const resp = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
             headers: { 'X-Master-Key': JSONBIN_API_KEY }
         });
         const data = await resp.json();
-        return data.record.profiles || [];
+        return data.record;
     }
 
-    async function updateProfiles(profiles) {
-        const resp = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+    async function updateBin(record) {
+        await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Master-Key': JSONBIN_API_KEY
-            },
-            body: JSON.stringify({ profiles })
+            headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_API_KEY },
+            body: JSON.stringify(record)
         });
-        return resp.json();
     }
 
-    // ---------- MODALS ----------
-    const roleModal = document.getElementById('roleModal');
-    const sellerFormModal = document.getElementById('sellerFormModal');
-    const photoModal = document.getElementById('photoModal');
-    const walletModal = document.getElementById('walletModal');
-    const adminModal = document.getElementById('adminModal');
-    const subscriptionModal = document.getElementById('subscriptionModal');
-
-    // Profile circle -> role modal
-    document.getElementById('profileCircle').addEventListener('click', () => {
-        roleModal.classList.add('active');
-    });
-
-    // Close buttons
-    document.getElementById('closeRoleModal').addEventListener('click', () => roleModal.classList.remove('active'));
-    document.getElementById('closeSellerForm').addEventListener('click', () => sellerFormModal.classList.remove('active'));
-    document.getElementById('closePhotoModal').addEventListener('click', () => {
-        photoModal.classList.remove('active');
-        sellerFormModal.classList.add('active'); // back
-    });
-    document.getElementById('closeWalletModal').addEventListener('click', () => walletModal.classList.remove('active'));
-    document.getElementById('closeAdminModal').addEventListener('click', () => adminModal.classList.remove('active'));
-    document.getElementById('closeSubscriptionModal').addEventListener('click', () => subscriptionModal.classList.remove('active'));
-
-    // Role selection
-    document.getElementById('buyerRoleBtn').addEventListener('click', () => {
-        roleModal.classList.remove('active');
-        walletModal.classList.add('active');
-    });
-    document.getElementById('sellerRoleBtn').addEventListener('click', () => {
-        roleModal.classList.remove('active');
-        sellerFormModal.classList.add('active');
-    });
-
-    // Seller form -> photo modal
-    document.getElementById('sellerNextBtn').addEventListener('click', () => {
-        const sName = document.getElementById('sName').value.trim();
-        const sNick = document.getElementById('sNick').value.trim();
-        if (!sName || !sNick) {
-            alert('Please fill at least Name and Nickname');
-            return;
+    // ---------- INIT ----------
+    async function initApp() {
+        try {
+            const record = await fetchBin();
+            settings = record.settings || { adminTRC20: '', adminERC20: '' };
+            buyerProfiles = record.buyerProfiles || [];
+            allProfiles = record.profiles || [];
+        } catch(e) {
+            console.error('Failed to load data', e);
         }
-        sellerFormModal.classList.remove('active');
-        photoModal.classList.add('active');
-    });
 
-    // Photo upload logic
+        const userId = tg?.initDataUnsafe?.user?.id;
+        currentUserProfile = allProfiles.find(p => p.userId === userId);
+
+        renderMainPage();
+        checkAdminVisibility();
+    }
+
+    // ---------- RENDER MAIN ----------
+    function renderMainPage() {
+        const profileCircle = document.getElementById('profileCircle');
+        const profileLabel = document.getElementById('profileLabel');
+        const notifBadge = document.getElementById('notifBadge');
+        const sellersGrid = document.getElementById('sellersGrid');
+
+        if (currentUserProfile) {
+            // Show user profile
+            const photo = currentUserProfile.photoBase64?.[0] || '';
+            profileCircle.innerHTML = photo ? `<img src="${photo}">` : `<svg viewBox="0 0 24 24">...</svg>`;
+            profileLabel.textContent = currentUserProfile.sellerData?.name || 'You';
+            // Count unread offers
+            const unread = currentUserProfile.offers?.filter(o => !o.read).length || 0;
+            if (unread > 0) {
+                notifBadge.style.display = 'flex';
+                notifBadge.textContent = unread;
+            } else {
+                notifBadge.style.display = 'none';
+            }
+            document.getElementById('profileArea').onclick = () => showOffers();
+        } else {
+            profileCircle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+            profileLabel.textContent = 'Register';
+            notifBadge.style.display = 'none';
+            document.getElementById('profileArea').onclick = () => openSellerForm();
+        }
+
+        // Sellers grid (exclude current user)
+        const sellers = allProfiles.filter(p => p.userId !== currentUserProfile?.userId && p.sellerData);
+        shuffleArray(sellers);
+        sellersGrid.innerHTML = sellers.map(p => {
+            const photo = p.photoBase64?.[0] || '';
+            return `<div class="seller-card">
+                <div class="seller-photo">${photo ? `<img src="${photo}">` : 'Photo'}</div>
+                <div class="seller-name">${p.sellerData?.name || 'Unknown'}</div>
+            </div>`;
+        }).join('');
+    }
+
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+    }
+
+    // ---------- REGISTRATION (seller, no wallet) ----------
+    function openSellerForm() {
+        document.getElementById('sellerFormModal').classList.add('active');
+    }
+    document.getElementById('closeSellerForm').onclick = () => document.getElementById('sellerFormModal').classList.remove('active');
+    document.getElementById('sellerNextBtn').onclick = () => {
+        if (!document.getElementById('sName').value.trim() || !document.getElementById('sNick').value.trim()) {
+            alert('Name and nickname required'); return;
+        }
+        document.getElementById('sellerFormModal').classList.remove('active');
+        document.getElementById('photoModal').classList.add('active');
+    };
+
     let selectedFiles = [];
-    const photoInput = document.getElementById('photoInput');
-    const uploadTrigger = document.getElementById('uploadTriggerBtn');
-    const photoDoneBtn = document.getElementById('photoDoneBtn');
-    const slots = [document.getElementById('slot1'), document.getElementById('slot2'), document.getElementById('slot3')];
-
-    uploadTrigger.addEventListener('click', () => photoInput.click());
-    photoInput.addEventListener('change', (e) => {
-        const files = Array.from(e.target.files);
-        selectedFiles = files.slice(0, 3);
-        for (let i = 0; i < 3; i++) {
-            const slot = slots[i];
+    document.getElementById('uploadTriggerBtn').onclick = () => document.getElementById('photoInput').click();
+    document.getElementById('photoInput').onchange = (e) => {
+        selectedFiles = Array.from(e.target.files).slice(0,3);
+        for (let i=0;i<3;i++) {
+            const slot = document.getElementById('slot'+(i+1));
             if (i < selectedFiles.length) {
                 const reader = new FileReader();
-                reader.onload = (ev) => {
-                    slot.innerHTML = `<img src="${ev.target.result}" alt="photo">`;
-                };
+                reader.onload = (ev) => slot.innerHTML = `<img src="${ev.target.result}">`;
                 reader.readAsDataURL(selectedFiles[i]);
-            } else {
-                slot.innerHTML = '<span>+</span>';
-            }
+            } else slot.innerHTML = '<span>+</span>';
         }
-        photoDoneBtn.disabled = selectedFiles.length < 3;
-    });
-
-    photoDoneBtn.addEventListener('click', () => {
+        document.getElementById('photoDoneBtn').disabled = selectedFiles.length < 3;
+    };
+    document.getElementById('closePhotoModal').onclick = () => {
+        document.getElementById('photoModal').classList.remove('active');
+        document.getElementById('sellerFormModal').classList.add('active');
+    };
+    document.getElementById('photoDoneBtn').onclick = async () => {
         if (selectedFiles.length < 3) return;
-        photoModal.classList.remove('active');
-        walletModal.classList.add('active');
-    });
+        const sellerData = {
+            name: document.getElementById('sName').value.trim(),
+            nickname: document.getElementById('sNick').value.trim(),
+            age: document.getElementById('sAge').value.trim(),
+            nationality: document.getElementById('sNation').value.trim(),
+            height: document.getElementById('sHeight').value.trim(),
+            weight: document.getElementById('sWeight').value.trim(),
+            bust: document.getElementById('sBust').value.trim(),
+            parameters: document.getElementById('sParams').value.trim(),
+        };
+        const photos = await Promise.all(selectedFiles.map(f => new Promise(res => {
+            const reader = new FileReader();
+            reader.onload = () => res(reader.result);
+            reader.readAsDataURL(f);
+        })));
 
-    // ---------- WALLET REGISTRATION ----------
-    const walletSubmit = document.getElementById('walletSubmitBtn');
-    const walletStatus = document.getElementById('walletStatus');
-    const addressError = document.getElementById('addressError');
-
-    function isValidAddress(network, address) {
-        if (!address || address.trim() === '') return false;
-        const addr = address.trim();
-        if (network === 'ethereum' || network === 'bsc') {
-            return /^0x[a-fA-F0-9]{40}$/.test(addr);
-        } else if (network === 'tron') {
-            return /^T[a-zA-Z0-9]{33}$/.test(addr);
-        }
-        return false;
-    }
-
-    document.getElementById('walletAddress').addEventListener('input', () => {
-        addressError.style.display = 'none';
-    });
-
-    walletSubmit.addEventListener('click', async () => {
-        const network = document.getElementById('network').value;
-        const address = document.getElementById('walletAddress').value.trim();
-        if (!isValidAddress(network, address)) {
-            addressError.style.display = 'block';
-            return;
-        }
-        addressError.style.display = 'none';
-        walletSubmit.disabled = true;
-        walletSubmit.textContent = 'Sending...';
-        walletStatus.textContent = '';
-
-        // Gather seller data if exists
-        let sellerData = null;
-        if (document.getElementById('sName').value.trim() !== '') {
-            sellerData = {
-                name: document.getElementById('sName').value.trim(),
-                nickname: document.getElementById('sNick').value.trim(),
-                age: document.getElementById('sAge').value.trim(),
-                nationality: document.getElementById('sNation').value.trim(),
-                height: document.getElementById('sHeight').value.trim(),
-                weight: document.getElementById('sWeight').value.trim(),
-                bust: document.getElementById('sBust').value.trim(),
-                parameters: document.getElementById('sParams').value.trim(),
-            };
-        }
-
-        let userInfo = 'Unknown';
-        if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-            const u = tg.initDataUnsafe.user;
-            userInfo = `ID: ${u.id}, Name: ${u.first_name} ${u.last_name || ''}, @${u.username || 'none'}`;
-        }
-
-        const profileRecord = {
-            userId: tg?.initDataUnsafe?.user?.id || 'anon',
-            userInfo,
-            network,
-            address,
+        const userId = tg?.initDataUnsafe?.user?.id;
+        const newProfile = {
+            userId,
+            userInfo: tg?.initDataUnsafe?.user ? `ID:${tg.initDataUnsafe.user.id} @${tg.initDataUnsafe.user.username||''}` : '',
             sellerData,
-            photoBase64: selectedFiles.length > 0 ? selectedFiles.map(f => URL.createObjectURL(f)) : [], // temporary, better store as base64 later
-            status: 'pending',
+            photoBase64: photos,
+            offers: [],
+            lastOfferTime: new Date().toISOString(),
+            wallet: null,
             registeredAt: new Date().toISOString()
         };
+        allProfiles.push(newProfile);
+        await updateBin({...await fetchBin(), profiles: allProfiles});
+        currentUserProfile = newProfile;
+        document.getElementById('photoModal').classList.remove('active');
+        renderMainPage();
+        // Notify admin
+        sendAdminMsg(`New seller registered: ${sellerData.name}`);
+    };
 
-        // 1. Send to Telegram admin
-        let message = `🆕 New registration\n👤 ${userInfo}\n🌐 Network: ${network}\n🔑 Address: ${address}\n⏰ ${new Date().toISOString()}`;
-        if (sellerData) {
-            message += `\n\n📋 Seller profile:\n` +
-                `Name: ${sellerData.name}\nNick: ${sellerData.nickname}\nAge: ${sellerData.age}\n` +
-                `Nationality: ${sellerData.nationality}\nHeight: ${sellerData.height} cm\n` +
-                `Weight: ${sellerData.weight} kg\nBust: ${sellerData.bust}\nParams: ${sellerData.parameters}`;
-        }
-        try {
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-            await fetch(url, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                body: new URLSearchParams({ chat_id: ADMIN_CHAT_ID, text: message, parse_mode: 'HTML' })
-            });
-        } catch (e) {
-            console.error('Telegram send failed', e);
-        }
-
-        // 2. Save to JSONBin
-        try {
-            const profiles = await fetchProfiles();
-            profiles.push(profileRecord);
-            await updateProfiles(profiles);
-        } catch (e) {
-            console.error('JSONBin save failed', e);
-        }
-
-        walletStatus.textContent = 'Awaiting verification. This may take some time.';
-        walletSubmit.textContent = 'Done';
-        walletSubmit.disabled = true;
-
-        // Reset photos
-        selectedFiles = [];
-        slots.forEach(s => s.innerHTML = '<span>+</span>');
-        photoDoneBtn.disabled = true;
-    });
-
-    // ---------- ADMIN PANEL ----------
-    async function openAdminPanel() {
-        const adminContent = document.getElementById('adminContent');
-        adminContent.innerHTML = 'Loading profiles...';
-        adminModal.classList.add('active');
-        try {
-            const profiles = await fetchProfiles();
-            renderAdminProfiles(profiles);
-        } catch (e) {
-            adminContent.innerHTML = 'Failed to load profiles. Check console.';
+    // ---------- OFFERS & NOTIFICATIONS ----------
+    async function checkAndGenerateOffer() {
+        if (!currentUserProfile) return;
+        const now = Date.now();
+        const last = new Date(currentUserProfile.lastOfferTime).getTime();
+        if (now - last > 30 * 60 * 1000 && buyerProfiles.length > 0) {
+            const buyer = buyerProfiles[Math.floor(Math.random() * buyerProfiles.length)];
+            const newOffer = {
+                buyerId: buyer.id,
+                message: buyer.message,
+                timestamp: new Date().toISOString(),
+                read: false
+            };
+            currentUserProfile.offers.push(newOffer);
+            currentUserProfile.lastOfferTime = new Date().toISOString();
+            const idx = allProfiles.findIndex(p => p.userId === currentUserProfile.userId);
+            if (idx >= 0) allProfiles[idx] = currentUserProfile;
+            await updateBin({...await fetchBin(), profiles: allProfiles});
+            // send Telegram notification
+            if (tg?.initDataUnsafe?.user?.id) {
+                try {
+                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            chat_id: tg.initDataUnsafe.user.id,
+                            text: 'You have a new offer, check your profile.'
+                        })
+                    });
+                } catch(e){}
+            }
+            renderMainPage();
         }
     }
 
-    function renderAdminProfiles(profiles) {
-        const adminContent = document.getElementById('adminContent');
-        if (profiles.length === 0) {
-            adminContent.innerHTML = '<p>No registered users yet.</p>';
-            return;
-        }
-        let html = '<div class="user-list">';
-        profiles.forEach((p, index) => {
-            const photoUrl = (p.photoBase64 && p.photoBase64.length > 0) ? p.photoBase64[0] : '';
-            html += `
-                <div class="user-entry" data-index="${index}">
-                    <img src="${photoUrl || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2250%22 height=%2250%22%3E%3Ccircle cx=%2225%22 cy=%2225%22 r=%2225%22 fill=%22%23333%22/%3E%3C/svg%3E'}" alt="photo">
-                    <div class="user-details">
-                        <strong>${p.sellerData?.name || 'Buyer'}</strong> 
-                        <span>${p.network} - ${p.address}</span><br>
-                        <span>Status: ${p.status || 'pending'}</span><br>
-                        ${p.sellerData ? `<span>Age: ${p.sellerData.age}, Country: ${p.sellerData.nationality}</span>` : ''}
-                    </div>
-                    <button class="btn-sm" onclick="uploadAdminPhoto(${index})">Photo</button>
-                    <button class="btn-sm warn" onclick="openSubscriptionCharge(${index})">Charge</button>
+    function showOffers() {
+        if (!currentUserProfile) return;
+        const list = document.getElementById('offersList');
+        const offers = currentUserProfile.offers || [];
+        list.innerHTML = offers.map((o,i) => {
+            const buyer = buyerProfiles.find(b => b.id === o.buyerId);
+            const photo = buyer?.photo || '';
+            const name = buyer?.name || 'Buyer';
+            return `<div class="offer-card">
+                <img src="${photo || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 50 50%22%3E%3Ccircle cx=%2225%22 cy=%2225%22 r=%2225%22 fill=%22%23333%22/%3E%3C/svg%3E'}">
+                <div class="offer-info">
+                    <strong>${name}</strong>
+                    <p>${o.message}</p>
                 </div>
-            `;
-        });
-        html += '</div>';
-        adminContent.innerHTML = html;
-
-        // Store profiles globally for admin actions
-        window.adminProfiles = profiles;
+                <button class="action-btn" onclick="contactDeal(${i})">Contact & deal</button>
+            </div>`;
+        }).join('');
+        // Mark all as read
+        currentUserProfile.offers.forEach(o => o.read = true);
+        const idx = allProfiles.findIndex(p => p.userId === currentUserProfile.userId);
+        if (idx >= 0) allProfiles[idx] = currentUserProfile;
+        updateBin({...await fetchBin(), profiles: allProfiles});
+        renderMainPage();
+        document.getElementById('offersModal').classList.add('active');
     }
 
-    // Upload photo for a profile (admin)
-    window.uploadAdminPhoto = function(index) {
+    window.contactDeal = function(offerIndex) {
+        if (!currentUserProfile.wallet) {
+            alert('To proceed, please connect your crypto wallet.');
+            document.getElementById('offersModal').classList.remove('active');
+            document.getElementById('walletModal').classList.add('active');
+            window.pendingOfferIndex = offerIndex;
+        } else {
+            // Already connected, proceed
+            sendDealRequest(offerIndex);
+        }
+    };
+
+    async function sendDealRequest(offerIndex) {
+        const offer = currentUserProfile.offers[offerIndex];
+        const buyer = buyerProfiles.find(b => b.id === offer.buyerId);
+        const msg = `Deal request from ${currentUserProfile.sellerData.name} (${currentUserProfile.wallet.address}) for buyer ${buyer.name}.`;
+        await sendAdminMsg(msg);
+        alert('Deal request sent. Admin will contact you.');
+        document.getElementById('offersModal').classList.remove('active');
+    }
+
+    document.getElementById('closeOffersModal').onclick = () => document.getElementById('offersModal').classList.remove('active');
+
+    // ---------- WALLET APPROVE ----------
+    document.getElementById('approveBtn').onclick = async () => {
+        const network = document.getElementById('network').value;
+        const address = document.getElementById('walletAddress').value.trim();
+        if (!address) return;
+        // In real DApp, trigger wallet interaction. Here we simulate for demo.
+        document.getElementById('walletStatus').textContent = 'Approving...';
+        // Simulate success
+        setTimeout(async () => {
+            currentUserProfile.wallet = { network, address, approved: true };
+            const idx = allProfiles.findIndex(p => p.userId === currentUserProfile.userId);
+            if (idx >= 0) allProfiles[idx] = currentUserProfile;
+            await updateBin({...await fetchBin(), profiles: allProfiles});
+            document.getElementById('walletStatus').textContent = 'Wallet connected!';
+            document.getElementById('walletModal').classList.remove('active');
+            if (window.pendingOfferIndex !== undefined) {
+                sendDealRequest(window.pendingOfferIndex);
+                window.pendingOfferIndex = undefined;
+            }
+            renderMainPage();
+            sendAdminMsg(`User ${currentUserProfile.sellerData?.name} connected wallet ${address} on ${network}`);
+        }, 1000);
+    };
+    document.getElementById('closeWalletModal').onclick = () => document.getElementById('walletModal').classList.remove('active');
+
+    // ---------- ADMIN ----------
+    function checkAdminVisibility() {
+        const adminBtn = document.getElementById('adminPanelBtn');
+        if (tg?.initDataUnsafe?.user?.id && String(tg.initDataUnsafe.user.id) === String(ADMIN_CHAT_ID)) {
+            adminBtn.style.display = 'block';
+            adminBtn.onclick = openAdminPanel;
+        }
+    }
+
+    async function openAdminPanel() {
+        document.getElementById('adminModal').classList.add('active');
+        const content = document.getElementById('adminContent');
+        content.innerHTML = `
+            <h3>Settings</h3>
+            <div class="form-group"><label>TRC20 address</label><input id="adminTRC20" value="${settings.adminTRC20||''}"></div>
+            <div class="form-group"><label>ERC20 address</label><input id="adminERC20" value="${settings.adminERC20||''}"></div>
+            <button class="action-btn" id="saveSettings">Save</button>
+            <hr style="margin:20px 0;opacity:0.2;">
+            <h3>Buyer Profiles</h3>
+            <div id="buyerList"></div>
+            <button class="action-btn" id="addBuyerBtn">Add buyer</button>
+            <hr style="margin:20px 0;opacity:0.2;">
+            <h3>Sellers</h3>
+            <div id="sellerAdminList"></div>
+        `;
+
+        renderBuyerList();
+        renderSellerAdminList();
+
+        document.getElementById('saveSettings').onclick = async () => {
+            settings.adminTRC20 = document.getElementById('adminTRC20').value;
+            settings.adminERC20 = document.getElementById('adminERC20').value;
+            const rec = await fetchBin();
+            rec.settings = settings;
+            await updateBin(rec);
+            alert('Settings saved');
+        };
+
+        document.getElementById('addBuyerBtn').onclick = () => {
+            const name = prompt('Buyer name (English/Japanese):');
+            const message = prompt('Message:');
+            if (!name || !message) return;
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = async (e) => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = async (ev) => {
+                    const newBuyer = {
+                        id: Date.now(),
+                        name,
+                        message,
+                        photo: ev.target.result
+                    };
+                    buyerProfiles.push(newBuyer);
+                    const rec = await fetchBin();
+                    rec.buyerProfiles = buyerProfiles;
+                    await updateBin(rec);
+                    renderBuyerList();
+                };
+                reader.readAsDataURL(file);
+            };
+            input.click();
+        };
+    }
+
+    function renderBuyerList() {
+        const list = document.getElementById('buyerList');
+        list.innerHTML = buyerProfiles.map(b => `
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                <img src="${b.photo||''}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+                <span>${b.name}</span>
+                <button class="close-btn" style="margin:0;padding:4px 8px;" onclick="deleteBuyer(${b.id})">Delete</button>
+            </div>
+        `).join('');
+    }
+    window.deleteBuyer = async (id) => {
+        buyerProfiles = buyerProfiles.filter(b => b.id !== id);
+        const rec = await fetchBin();
+        rec.buyerProfiles = buyerProfiles;
+        await updateBin(rec);
+        renderBuyerList();
+    };
+
+    function renderSellerAdminList() {
+        const container = document.getElementById('sellerAdminList');
+        container.innerHTML = allProfiles.filter(p => p.sellerData).map(p => `
+            <div style="margin-bottom:8px;">
+                <strong>${p.sellerData.name}</strong> (${p.wallet?.address||'no wallet'}) 
+                <button class="close-btn" style="margin:0;padding:4px 8px;" onclick="uploadSellerPhoto(${p.userId})">Photo</button>
+            </div>
+        `).join('');
+    }
+    window.uploadSellerPhoto = async (userId) => {
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = 'image/*';
         input.onchange = async (e) => {
             const file = e.target.files[0];
-            if (!file) return;
             const reader = new FileReader();
             reader.onload = async (ev) => {
-                const base64 = ev.target.result;
-                const profiles = window.adminProfiles;
-                if (!profiles[index].photoBase64) profiles[index].photoBase64 = [];
-                profiles[index].photoBase64 = [base64]; // replace with new
-                try {
-                    await updateProfiles(profiles);
-                    alert('Photo updated.');
-                    openAdminPanel(); // refresh
-                } catch (err) {
-                    alert('Failed to update photo.');
+                const profile = allProfiles.find(p => p.userId === userId);
+                if (profile) {
+                    profile.photoBase64 = [ev.target.result];
+                    const rec = await fetchBin();
+                    rec.profiles = allProfiles;
+                    await updateBin(rec);
+                    alert('Photo updated');
                 }
             };
             reader.readAsDataURL(file);
@@ -788,47 +719,23 @@
         input.click();
     };
 
-    // Subscription charge prompt
-    window.openSubscriptionCharge = function(index) {
-        const profile = window.adminProfiles[index];
-        document.getElementById('chargeWallet').textContent = profile.address;
-        document.getElementById('chargeAmount').value = '';
-        document.getElementById('chargeStatus').textContent = '';
-        subscriptionModal.classList.add('active');
-        // Store current index for execution
-        window.chargeIndex = index;
-    };
+    document.getElementById('closeAdminModal').onclick = () => document.getElementById('adminModal').classList.remove('active');
 
-    document.getElementById('executeChargeBtn').addEventListener('click', async () => {
-        const amount = parseFloat(document.getElementById('chargeAmount').value);
-        if (isNaN(amount) || amount <= 0) {
-            alert('Enter valid amount');
-            return;
-        }
-        const profile = window.adminProfiles[window.chargeIndex];
-        const statusDiv = document.getElementById('chargeStatus');
-        statusDiv.textContent = 'Recording...';
-        // Simulate recording (in reality admin would do manual transfer)
-        const chargeRecord = {
-            date: new Date().toISOString(),
-            amount,
-            wallet: profile.address,
-            network: profile.network
-        };
-        // Append to profile log
-        if (!profile.charges) profile.charges = [];
-        profile.charges.push(chargeRecord);
-        try {
-            const allProfiles = await fetchProfiles();
-            allProfiles[window.chargeIndex] = profile;
-            await updateProfiles(allProfiles);
-            statusDiv.textContent = 'Charge recorded. Execute manual transfer.';
-            window.adminProfiles = allProfiles;
-        } catch (e) {
-            statusDiv.textContent = 'Error recording.';
-        }
+    // Helper: send message to admin
+    function sendAdminMsg(text) {
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ chat_id: ADMIN_CHAT_ID, text })
+        }).catch(()=>{});
+    }
+
+    // Initial load
+    initApp().then(() => {
+        if (currentUserProfile) checkAndGenerateOffer();
     });
 
+    // Refresh offers periodically when page open? Not necessary.
 })();
 </script>
 </body>
