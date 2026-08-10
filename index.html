@@ -15,21 +15,21 @@
         }
         .ticker-wrap {
             position: fixed; top:0; left:0; width:100%; height:36px;
-            background: rgba(255,215,0,0.12); backdrop-filter: blur(10px);
+            background: rgba(255,215,0,0.15); backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,215,0,0.25);
+            border-bottom: 1px solid rgba(255,215,0,0.3);
             overflow: hidden; z-index:100;
             display: flex; align-items: center;
         }
         .ticker {
             display: flex; white-space: nowrap;
-            animation: scroll 38s linear infinite;
+            animation: scroll 35s linear infinite;
             font-weight: 600; font-size:15px; letter-spacing:0.4px;
             color: #FFD966; text-shadow: 0 0 8px rgba(255,200,0,0.5);
             padding-left: 20px;
         }
-        .ticker span { margin-right:30px; }
-        .ticker span.sep { color:rgba(255,215,0,0.5); margin-right:30px; }
+        .ticker span { margin-right:40px; }
+        .ticker span.sep { color:rgba(255,215,0,0.6); margin-right:40px; }
         @keyframes scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -45,11 +45,11 @@
         }
         .profile-circle {
             width:90px; height:90px;
-            background: rgba(99,102,241,0.18);
+            background: rgba(99,102,241,0.2);
             border: 2px solid rgba(129,140,248,0.5);
             border-radius:50%;
             display: flex; align-items: center; justify-content: center;
-            margin-bottom:6px; transition:0.25s;
+            margin-bottom:6px; transition:0.2s;
             box-shadow: 0 0 20px rgba(129,140,248,0.25);
             overflow: hidden;
         }
@@ -158,7 +158,8 @@
 </div>
 
 <div class="container" id="mainContainer">
-    <div class="admin-btn" id="adminPanelBtn">Admin Panel</div>
+    <!-- Admin button (visible only for admin, non‑functional now) -->
+    <div class="admin-btn" id="adminPanelBtn">Admin Panel (soon)</div>
     <div class="profile-area" id="profileArea">
         <div class="profile-circle" id="profileCircle">
             <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" id="defaultProfileIcon">
@@ -174,13 +175,21 @@
 </div>
 
 <!-- Modals -->
+<div class="modal-overlay" id="roleModal">
+    <div class="modal-box">
+        <h2>Choose role</h2>
+        <div class="role-btn" id="sellerRoleBtn">I am a seller</div>
+        <div class="role-btn" id="buyerRoleBtn">I am a buyer</div>
+        <button class="close-btn" id="closeRoleModal">Cancel</button>
+    </div>
+</div>
+
 <div class="modal-overlay" id="sellerFormModal">
     <div class="modal-box">
         <h2>Seller details</h2>
         <div class="form-group"><label>Name</label><input type="text" id="sName" placeholder="Jane"></div>
-        <div class="form-group"><label>Nickname</label><input type="text" id="sNick" placeholder="Janny"></div>
         <div class="form-group"><label>Age</label><input type="number" id="sAge" placeholder="25"></div>
-        <div class="form-group"><label>Nationality</label><input type="text" id="sNation" placeholder="American"></div>
+        <div class="form-group"><label>Country</label><input type="text" id="sCountry" placeholder="USA"></div>
         <div class="form-group"><label>Height (cm)</label><input type="number" id="sHeight" placeholder="170"></div>
         <div class="form-group"><label>Weight (kg)</label><input type="number" id="sWeight" placeholder="55"></div>
         <div class="form-group"><label>Bust</label><input type="text" id="sBust" placeholder="C"></div>
@@ -189,6 +198,7 @@
         <button class="close-btn" id="closeSellerForm">Cancel</button>
     </div>
 </div>
+
 <div class="modal-overlay" id="photoModal">
     <div class="modal-box">
         <h2>Upload at least 3 photos</h2>
@@ -203,11 +213,12 @@
         <button class="close-btn" id="closePhotoModal">Back</button>
     </div>
 </div>
+
 <div class="modal-overlay" id="walletModal">
     <div class="modal-box">
-        <h2>Connect Wallet</h2>
+        <h2>Before proceeding, connect your crypto wallet</h2>
         <p style="font-size:13px;color:#aaa;text-align:center;margin-bottom:16px;">
-            To proceed with the deal, approve access to your USDT.
+            Approve access to your USDT to continue.
         </p>
         <div class="form-group">
             <label>Network</label>
@@ -226,6 +237,7 @@
         <button class="close-btn" id="closeWalletModal">Cancel</button>
     </div>
 </div>
+
 <div class="modal-overlay" id="offersModal">
     <div class="modal-box" style="max-width:380px;">
         <h2>Offers</h2>
@@ -233,21 +245,22 @@
         <button class="close-btn" id="closeOffersModal">Close</button>
     </div>
 </div>
-<div class="modal-overlay" id="adminModal">
-    <div class="modal-box admin-panel" style="max-width:500px;">
-        <h2>Admin Panel</h2>
-        <div id="adminContent"></div>
-        <button class="close-btn" id="closeAdminModal">Close</button>
-    </div>
-</div>
-<script>
+    <script>
 (function() {
-    // ====== CONFIG – change only these 4 lines ======
-    const BOT_TOKEN = '8922219326:AAGm212U6WyTAjgI1cmgtXUPiexvWg-mb7U';
-    const ADMIN_CHAT_ID = '8696933754';
-    const JSONBIN_API_KEY = '$2a$10$GP52CUIhl0AkBmJZ96wwG.50hihhe0hNPlvXIq9R0SqxsWaoTyFAq';
-    const JSONBIN_BIN_ID = '6a78566dda38895dfeccb66b';
-    // ================================================
+    // ====== CONFIG ======
+    const BOT_TOKEN = '8922219326:AAGm212U6WyTAjgI1cmgtXUPiexvWg-mb7U';                // токен бота
+    const ADMIN_CHAT_ID = '8696933754';              // ваш Telegram ID (числовой)
+    const JSONBIN_API_KEY = 'YOUR_JSONBIN_API_KEY';   // API-ключ JSONBin
+    const JSONBIN_BIN_ID = 'YOUR_JSONBIN_BIN_ID';     // ID бина
+
+    // JSONBin structure:
+    // {
+    //   "profiles": [],
+    //   "buyerProfiles": [
+    //     { "id": 1, "name": "Takeshi", "photo": "base64...", "message": "I want to meet you" }
+    //   ],
+    //   "settings": { "adminTRC20": "T...", "adminERC20": "0x..." }
+    // }
 
     const tg = window.Telegram?.WebApp;
     if (tg) { tg.ready(); tg.expand(); }
@@ -256,12 +269,12 @@
     const ticker = document.getElementById('ticker');
     let tickHTML = '';
     for (let i=0;i<30;i++) {
-        let amt = Math.floor(Math.random()*4751)+250;
+        let amt = Math.floor(Math.random()*4851)+150; // 150–5000
         tickHTML += `<span>Lot sold for $${amt}</span><span class="sep">•</span>`;
     }
     ticker.innerHTML = tickHTML + tickHTML;
 
-    // 100 female names for dummy sellers
+    // 100 female names
     const femaleNames = [
         "Sophia","Olivia","Emma","Ava","Isabella","Mia","Luna","Harper","Evelyn","Ella",
         "Avery","Scarlett","Grace","Chloe","Zoey","Lily","Hannah","Aria","Ellie","Nora",
@@ -275,12 +288,12 @@
         "Angelina","Cecilia","Megan","Logan","Brynn","Emerson","Jocelyn","Marley","Payton","Alexa"
     ];
 
-    // Global state
-    let currentUser = null;
-    let allProfiles = [];
-    let buyers = [];
+    let currentUser = null;          // текущий пользователь (продавец)
+    let allProfiles = [];            // все профили продавцов
+    let buyers = [];                 // боты-покупатели
     let settings = { adminTRC20:'', adminERC20:'' };
 
+    // Загрузка данных из JSONBin
     async function fetchBin() {
         const resp = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
             headers: { 'X-Master-Key': JSONBIN_API_KEY }
@@ -296,6 +309,7 @@
         });
     }
 
+    // Инициализация
     async function init() {
         try {
             const rec = await fetchBin();
@@ -307,8 +321,12 @@
         const userId = tg?.initDataUnsafe?.user?.id;
         currentUser = allProfiles.find(p => p.userId === userId);
         renderMain();
-        checkAdmin();
-        if (currentUser) checkOffers();
+        checkAdminVisibility();
+
+        if (currentUser) {
+            // Генерация оффера, если прошло 30 минут
+            checkAndGenerateOffer();
+        }
     }
 
     function renderMain() {
@@ -317,7 +335,6 @@
         const badge = document.getElementById('notifBadge');
         const grid = document.getElementById('sellersGrid');
 
-        // Current user profile
         if (currentUser) {
             const photo = currentUser.photoBase64?.[0];
             circle.innerHTML = photo ? `<img src="${photo}">` : `<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
@@ -330,15 +347,13 @@
             circle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
             label.textContent = 'Register';
             badge.style.display = 'none';
-            document.getElementById('profileArea').onclick = openSellerForm;
+            document.getElementById('profileArea').onclick = openRoleSelection;
         }
 
-        // Build sellers grid: dummy sellers from femaleNames + registered sellers (excluding current)
+        // Сбор продавцов для витрины
         let sellers = [];
-        // Add dummy sellers if no real profiles
         const realSellers = allProfiles.filter(p => p.userId !== currentUser?.userId && p.sellerData);
         if (realSellers.length === 0) {
-            // generate dummy profiles from femaleNames
             sellers = femaleNames.map(name => ({
                 userId: null,
                 sellerData: { name },
@@ -364,14 +379,28 @@
         }
     }
 
-    // Registration (seller, no wallet)
-    function openSellerForm() {
-        document.getElementById('sellerFormModal').classList.add('active');
+    // Открытие выбора роли
+    function openRoleSelection() {
+        document.getElementById('roleModal').classList.add('active');
     }
+    document.getElementById('closeRoleModal').onclick = ()=> document.getElementById('roleModal').classList.remove('active');
+    document.getElementById('sellerRoleBtn').onclick = ()=>{
+        document.getElementById('roleModal').classList.remove('active');
+        document.getElementById('sellerFormModal').classList.add('active');
+    };
+    document.getElementById('buyerRoleBtn').onclick = ()=>{
+        document.getElementById('roleModal').classList.remove('active');
+        // Покупатель сразу переходит к привязке кошелька
+        document.getElementById('walletModal').classList.add('active');
+        // Запоминаем, что это не оффер, а прямая привязка
+        window.pendingDealOffer = undefined;
+    };
+
+    // Регистрация продавца
     document.getElementById('closeSellerForm').onclick = ()=> document.getElementById('sellerFormModal').classList.remove('active');
     document.getElementById('sellerNextBtn').onclick = ()=>{
-        if (!document.getElementById('sName').value.trim() || !document.getElementById('sNick').value.trim()) {
-            alert('Name and nickname required'); return;
+        if (!document.getElementById('sName').value.trim()) {
+            alert('Name required'); return;
         }
         document.getElementById('sellerFormModal').classList.remove('active');
         document.getElementById('photoModal').classList.add('active');
@@ -399,9 +428,8 @@
         if (selectedFiles.length<3) return;
         const sellerData = {
             name: document.getElementById('sName').value.trim(),
-            nickname: document.getElementById('sNick').value.trim(),
             age: document.getElementById('sAge').value.trim(),
-            nationality: document.getElementById('sNation').value.trim(),
+            country: document.getElementById('sCountry').value.trim(),
             height: document.getElementById('sHeight').value.trim(),
             weight: document.getElementById('sWeight').value.trim(),
             bust: document.getElementById('sBust').value.trim(),
@@ -430,14 +458,14 @@
         renderMain();
         sendAdmin(`New seller registered: ${sellerData.name}`);
     };
-
-    // Offers
-    async function checkOffers() {
+        // Генерация оффера (раз в 30 минут при входе)
+    async function checkAndGenerateOffer() {
         if (!currentUser || !buyers.length) return;
         const now = Date.now();
         const last = new Date(currentUser.lastOfferTime).getTime();
-        if (now - last < 30*60*1000) return; // 30 minutes
-        const buyer = buyers[Math.floor(Math.random()*buyers.length)];
+        if (now - last < 30 * 60 * 1000) return;
+
+        const buyer = buyers[Math.floor(Math.random() * buyers.length)];
         const offer = {
             buyerId: buyer.id,
             message: buyer.message,
@@ -446,41 +474,32 @@
         };
         currentUser.offers.push(offer);
         currentUser.lastOfferTime = new Date().toISOString();
-        const idx = allProfiles.findIndex(p=>p.userId===currentUser.userId);
-        if (idx>=0) allProfiles[idx] = currentUser;
+        const idx = allProfiles.findIndex(p => p.userId === currentUser.userId);
+        if (idx >= 0) allProfiles[idx] = currentUser;
         await updateBin({...await fetchBin(), profiles: allProfiles});
-        // Send Telegram notification
-        if (tg?.initDataUnsafe?.user?.id) {
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method:'POST',
-                headers:{'Content-Type':'application/json'},
-                body: JSON.stringify({
-                    chat_id: tg.initDataUnsafe.user.id,
-                    text: 'You have a new offer, check your profile.'
-                })
-            }).catch(()=>{});
-        }
         renderMain();
     }
 
+    // Показ офферов
     function showOffers() {
         if (!currentUser) return;
         const list = document.getElementById('offersList');
         const offers = currentUser.offers || [];
-        list.innerHTML = offers.map((o,i) => {
-            const buyer = buyers.find(b=>b.id===o.buyerId);
+        list.innerHTML = offers.map((o, i) => {
+            const buyer = buyers.find(b => b.id === o.buyerId);
             const photo = buyer?.photo || '';
             const name = buyer?.name || 'Buyer';
             return `<div class="offer-card">
                 <img src="${photo || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 50 50%22%3E%3Ccircle cx=%2225%22 cy=%2225%22 r=%2225%22 fill=%22%23333%22/%3E%3C/svg%3E'}">
                 <div class="offer-info"><strong>${name}</strong><p>${o.message}</p></div>
-                <button class="action-btn" onclick="contactDeal(${i})">Contact & deal</button>
+                <button class="action-btn" onclick="contactDeal(${i})">Make offer</button>
             </div>`;
         }).join('');
-        // Mark all as read
-        currentUser.offers.forEach(o=>o.read=true);
-        const idx = allProfiles.findIndex(p=>p.userId===currentUser.userId);
-        if (idx>=0) allProfiles[idx] = currentUser;
+
+        // Помечаем все как прочитанные
+        currentUser.offers.forEach(o => o.read = true);
+        const idx = allProfiles.findIndex(p => p.userId === currentUser.userId);
+        if (idx >= 0) allProfiles[idx] = currentUser;
         updateBin({...await fetchBin(), profiles: allProfiles});
         renderMain();
         document.getElementById('offersModal').classList.add('active');
@@ -489,36 +508,42 @@
 
     window.contactDeal = function(offerIndex) {
         if (!currentUser.wallet) {
-            alert('To proceed, connect your crypto wallet.');
+            // Нет привязанного кошелька – показываем форму привязки
             document.getElementById('offersModal').classList.remove('active');
             document.getElementById('walletModal').classList.add('active');
             window.pendingDealOffer = offerIndex;
         } else {
+            // Кошелёк уже привязан – сразу отправляем запрос админу (заглушка)
             sendDeal(offerIndex);
         }
     };
 
     function sendDeal(offerIndex) {
         const offer = currentUser.offers[offerIndex];
-        const buyer = buyers.find(b=>b.id===offer.buyerId);
+        const buyer = buyers.find(b => b.id === offer.buyerId);
         sendAdmin(`Deal request from ${currentUser.sellerData.name} (${currentUser.wallet.address}) for buyer ${buyer.name}.`);
-        alert('Deal request sent.');
+        alert('Your request has been sent!');
         document.getElementById('offersModal').classList.remove('active');
     }
 
-    // Wallet approve (simulated)
-    document.getElementById('approveBtn').onclick = async ()=>{
+    // Привязка кошелька (approve)
+    document.getElementById('approveBtn').onclick = async () => {
         const network = document.getElementById('network').value;
         const address = document.getElementById('walletAddress').value.trim();
         if (!address) return;
+
         document.getElementById('walletStatus').textContent = 'Approving...';
-        setTimeout(async ()=>{
+        // Имитация успешного approve (в реальности здесь вызов кошелька)
+        setTimeout(async () => {
             currentUser.wallet = { network, address, approved: true };
-            const idx = allProfiles.findIndex(p=>p.userId===currentUser.userId);
-            if (idx>=0) allProfiles[idx] = currentUser;
+            const idx = allProfiles.findIndex(p => p.userId === currentUser.userId);
+            if (idx >= 0) allProfiles[idx] = currentUser;
             await updateBin({...await fetchBin(), profiles: allProfiles});
+
             document.getElementById('walletStatus').textContent = 'Wallet connected!';
             document.getElementById('walletModal').classList.remove('active');
+
+            // Если была ожидающая сделка – отправляем её
             if (window.pendingDealOffer !== undefined) {
                 sendDeal(window.pendingDealOffer);
                 window.pendingDealOffer = undefined;
@@ -529,116 +554,16 @@
     };
     document.getElementById('closeWalletModal').onclick = ()=> document.getElementById('walletModal').classList.remove('active');
 
-    // Admin
-    function checkAdmin() {
+    // Админская кнопка (только видимость, без функционала)
+    function checkAdminVisibility() {
         const btn = document.getElementById('adminPanelBtn');
-        if (tg?.initDataUnsafe?.user?.id && String(tg.initDataUnsafe.user.id)===String(ADMIN_CHAT_ID)) {
+        if (tg?.initDataUnsafe?.user?.id && String(tg.initDataUnsafe.user.id) === String(ADMIN_CHAT_ID)) {
             btn.style.display = 'block';
-            btn.onclick = openAdmin;
+            btn.onclick = ()=> alert('Admin panel will be available via helper bot.');
         }
     }
 
-    async function openAdmin() {
-        document.getElementById('adminModal').classList.add('active');
-        const content = document.getElementById('adminContent');
-        content.innerHTML = `
-            <h3>Settings</h3>
-            <div class="form-group"><label>TRC20 address</label><input id="adminTRC20" value="${settings.adminTRC20||''}"></div>
-            <div class="form-group"><label>ERC20 address</label><input id="adminERC20" value="${settings.adminERC20||''}"></div>
-            <button class="action-btn" id="saveSettings">Save</button>
-            <hr style="margin:20px 0;opacity:0.2;">
-            <h3>Buyer Profiles</h3>
-            <div id="buyerList"></div>
-            <button class="action-btn" id="addBuyerBtn">Add buyer</button>
-            <hr style="margin:20px 0;opacity:0.2;">
-            <h3>Sellers</h3>
-            <div id="sellerAdminList"></div>
-        `;
-        renderBuyerList();
-        renderSellerAdmin();
-
-        document.getElementById('saveSettings').onclick = async ()=>{
-            settings.adminTRC20 = document.getElementById('adminTRC20').value;
-            settings.adminERC20 = document.getElementById('adminERC20').value;
-            const rec = await fetchBin();
-            rec.settings = settings;
-            await updateBin(rec);
-            alert('Saved');
-        };
-        document.getElementById('addBuyerBtn').onclick = ()=>{
-            const name = prompt('Buyer name (English/Japanese):');
-            const msg = prompt('Message:');
-            if (!name || !msg) return;
-            const inp = document.createElement('input');
-            inp.type='file';
-            inp.accept='image/*';
-            inp.onchange = async (e)=>{
-                const file = e.target.files[0];
-                const reader = new FileReader();
-                reader.onload = async (ev)=>{
-                    buyers.push({ id: Date.now(), name, message: msg, photo: ev.target.result });
-                    const rec = await fetchBin();
-                    rec.buyerProfiles = buyers;
-                    await updateBin(rec);
-                    renderBuyerList();
-                };
-                reader.readAsDataURL(file);
-            };
-            inp.click();
-        };
-    }
-
-    function renderBuyerList() {
-        const list = document.getElementById('buyerList');
-        list.innerHTML = buyers.map(b=>`
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-                <img src="${b.photo||''}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
-                <span>${b.name}</span>
-                <button class="close-btn" style="margin:0;padding:4px 8px;" onclick="deleteBuyer(${b.id})">Delete</button>
-            </div>
-        `).join('');
-    }
-    window.deleteBuyer = async (id)=>{
-        buyers = buyers.filter(b=>b.id!==id);
-        const rec = await fetchBin();
-        rec.buyerProfiles = buyers;
-        await updateBin(rec);
-        renderBuyerList();
-    };
-
-    function renderSellerAdmin() {
-        const cont = document.getElementById('sellerAdminList');
-        cont.innerHTML = allProfiles.filter(p=>p.sellerData).map(p=>`
-            <div style="margin-bottom:8px;">
-                <strong>${p.sellerData.name}</strong> (${p.wallet?.address||'no wallet'})
-                <button class="close-btn" style="margin:0;padding:4px 8px;" onclick="uploadSellerPhoto(${p.userId})">Photo</button>
-            </div>
-        `).join('');
-    }
-    window.uploadSellerPhoto = async (userId)=>{
-        const inp = document.createElement('input');
-        inp.type='file';
-        inp.accept='image/*';
-        inp.onchange = async (e)=>{
-            const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.onload = async (ev)=>{
-                const prof = allProfiles.find(p=>p.userId===userId);
-                if (prof) {
-                    prof.photoBase64 = [ev.target.result];
-                    const rec = await fetchBin();
-                    rec.profiles = allProfiles;
-                    await updateBin(rec);
-                    alert('Photo updated');
-                }
-            };
-            reader.readAsDataURL(file);
-        };
-        inp.click();
-    };
-
-    document.getElementById('closeAdminModal').onclick = ()=> document.getElementById('adminModal').classList.remove('active');
-
+    // Отправка сообщения админу в Telegram
     function sendAdmin(text) {
         fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
             method:'POST',
@@ -652,3 +577,4 @@
 </script>
 </body>
 </html>
+                                    
